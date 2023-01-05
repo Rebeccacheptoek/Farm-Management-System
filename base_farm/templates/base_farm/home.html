@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>Home template</h1>
+<div>
+    <div>
+        {% for farm in farms %}
+        <div>
+            <h5>{{ farm.id }}. <a href="{% {% url 'farm' farm.id %} %}">{{ farm.name }}</a>--{{ farm.location }}--{{ farm.size }} -- {{ farm.is_mine }}</h5>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
