@@ -2,12 +2,16 @@
 
 {% block content %}
 
-<h1>Home template</h1>
+<h1>Home- FarmTech</h1>
 <div>
+    <a href="{% url 'farm-register' %}">Register farm</a>
+    <hr>
+    <a href="{% url 'create-farm' %}">Create Farm</a>
+    <hr>
     <div>
         {% for farm in farms %}
         <div>
-            <h5>{{ farm.id }}. <a href="{% {% url 'farm' farm.id %} %}">{{ farm.name }}</a>--{{ farm.location }}--{{ farm.size }} -- {{ farm.is_mine }}</h5>
+            <h5>{{ farm.id }}. <a href="{% url 'farm' farm.id %}">{{ farm.name }}</a>--{{ farm.location }}--{{ farm.size }} -- {{ farm.is_mine }}</h5>
         </div>
         {% endfor %}
     </div>
