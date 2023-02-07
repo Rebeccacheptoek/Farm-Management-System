@@ -2,6 +2,7 @@ from django.db import models
 
 
 # Create your models here.
+
 class Farm(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
@@ -22,6 +23,10 @@ class FarmLease(models.Model):
     farmer_name = models.CharField(max_length=200)
     farmer_phone = models.CharField(max_length=50)
     price = models.IntegerField()
+
+    def __str__(self):
+        return self.farm_id, self.farmer_name
+
 
 
 class Crop(models.Model):
@@ -51,6 +56,10 @@ class FarmCrop(models.Model):
     year_planted = models.CharField(max_length=50)
     status = models.TextField(blank=True)
 
+    def __str__(self):
+        return self.farm_id, self.crop_id
+
+
 
 class FarmRegister(models.Model):
     farm_crop_id = models.ForeignKey(FarmCrop, on_delete=models.CASCADE, null=True)
@@ -69,3 +78,7 @@ class FarmRegister(models.Model):
 class FarmNotes(models.Model):
     farm_crop_id = models.ForeignKey(FarmCrop, on_delete=models.CASCADE, null=True)
     notes = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.notes
+

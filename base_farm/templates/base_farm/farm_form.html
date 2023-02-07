@@ -1,10 +1,41 @@
 {% extends 'main.html' %}
 {% block content %}
-    <div>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-    </form>
-</div>
+    <hr>
+    <!-- Comment Form Start -->
+                <div class="bg-primary p-5">
+                    <h2 class="text-white mb-4">Create Farm</h2>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-12 col-sm-6">
+{#                                <input type="text" class="form-control bg-white border-0" placeholder="Farm Name" style="height: 55px;">#}
+                            {{ form.name }}
+                            </div>
+                            <div class="col-12">
+                                {{ form.description }}
+{#                                <textarea class="form-control bg-white border-0" rows="5" placeholder="Farm description"></textarea>#}
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                {{ form.size }}
+{#                                <input type="number" class="form-control bg-white border-0" placeholder="Farm size in acres" style="height: 55px;">#}
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                {{ form.location }}
+{#                                <input type="text" class="form-control bg-white border-0" placeholder="Location" style="height: 55px;">#}
+                            </div>
+                            <div class="col-12">
+                                {{ form.is_mine }}
+{#                                <select name="ownership" id="" class="form-control bg-white border-0">#}
+{#                                    <option value="1">Farm ownership</option>#}
+{#                                    <option value="1">Mine</option>#}
+{#                                    <option value="0">No(leased)</option>#}
+{#                                </select>#}
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-secondary w-100 py-3" type="submit">Create</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Comment Form End -->
 {% endblock content %}

@@ -1,6 +1,8 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from .models import Farm, Crop, FarmRegister, Category, FarmCrop, FarmLease, FarmNotes
-from .forms import FarmRegisterForm, FarmForm
+from .forms import FarmRegisterForm, FarmForm, CreateUserForm
+from django.contrib.auth.forms import UserCreationForm
 
 # from django.contrib.auth.forms import us
 
@@ -11,9 +13,32 @@ farms = [
 ]
 
 
+def registerPage(request):
+    form = CreateUserForm()
+
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request, 'Account created successfully for ' + user)
+
+            return redirect('login')
+
+    context = {'form': form}
+    return render(request, 'base_farm/register.html', context)
+
+
+def loginPage(request):
+    context = {}
+    return render(request, 'base_farm/login.html', context)
+
+
 def home(request):
     farms = Farm.objects.all()
-    context = {'farms': farms}
+    categories = Category.objects.all()
+    registered_farms = FarmRegister.objects.all()
+    context = {'farms': farms, 'categories': categories, 'registered_farms': registered_farms}
     return render(request, 'base_farm/home.html', context)
 
 
@@ -31,7 +56,20 @@ def createFarm(request):
             form.save()
             return redirect('home')
     context = {'form': form}
-    return render(request, 'base_farm/farm_form.html')
+    return render(request, 'base_farm/farm_form.html', context)
+
+
+def updateFarm(request, pk):
+    farm = Farm.objects.get(id=pk)
+    form = FarmForm(instance=farm)
+    if request.method == 'POST':
+        form = FarmForm(request.POST, instance=farm)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    context = {'form': form}
+    return render(request, 'base_farm/farm_form.html', context)
 
 
 def crop(request):
@@ -49,3 +87,11 @@ def farmRegister(request):
             return redirect('home')
     context = {'form': form}
     return render(request, 'base_farm/farm_register_form.html', context)
+
+
+def deleteFarm(request, pk):
+    farm = Farm.objects.get(id=pk)
+    if request.method == 'POST':
+        farm.delete()
+        return redirect('home')
+    return render(request, 'base_farm/delete.html', {'obj': farm})
