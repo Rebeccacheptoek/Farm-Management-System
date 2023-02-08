@@ -11,7 +11,7 @@ def admin_login(request):
     # return render(request, 'login.html')
     try:
         if request.user.is_authenticated:
-            return redirect('home')
+            return redirect('back-home')
         if request.method == 'POST':
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -24,7 +24,7 @@ def admin_login(request):
 
             if user_obj and user_obj.is_superuser:
                 login(request, user_obj)
-                return redirect('home')
+                return redirect('back-home')
 
             messages.info(request, 'Invalid password')
             return redirect('/')
