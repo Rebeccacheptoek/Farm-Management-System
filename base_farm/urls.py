@@ -2,8 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('register/', views.registerPage, name='register'),
+    path('register/', views.registerUser, name='register'),
     path('login/', views.loginPage, name='login'),
+    path('logout/', views.logoutUser, name='logout'),
     path('', views.home, name="home"),
     path('farm/<str:pk>/', views.farm, name="farm"),
     path('create-farm/', views.createFarm, name="create-farm"),

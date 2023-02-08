@@ -1,4 +1,6 @@
 from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .models import Farm, Crop, FarmRegister, Category, FarmCrop, FarmLease, FarmNotes
 from .forms import FarmRegisterForm, FarmForm, CreateUserForm
@@ -13,25 +15,73 @@ farms = [
 ]
 
 
-def registerPage(request):
+def registerUser(request):
+    # form = UserCreationForm()
     form = CreateUserForm()
-
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request, 'Account created successfully for ' + user)
-
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
             return redirect('login')
+        else:
+            messages.error(request, ' An error occurred during registration')
+    return render(request, 'base_farm/register.html', {'form': form})
 
-    context = {'form': form}
-    return render(request, 'base_farm/register.html', context)
+
+# def registerPage(request):
+#     form = CreateUserForm()
+#
+#     if request.method == 'POST':
+#         form = CreateUserForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             user = form.cleaned_data.get('username')
+#             messages.success(request, 'Account created successfully for ' + user)
+#
+#             return redirect('login')
+#
+#     context = {'form': form}
+#     return render(request, 'base_farm/register.html', context)
 
 
 def loginPage(request):
-    context = {}
+    page = 'login'
+    if request.user.is_authenticated:
+        return redirect('home')
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        # email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.error(request, 'User does not exist')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Username OR password does not exist')
+
+    context = {'page': page}
     return render(request, 'base_farm/login.html', context)
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
+
+
+# def loginPage(request):
+#     context = {}
+#     return render(request, 'base_farm/login.html', context)
 
 
 def home(request):
