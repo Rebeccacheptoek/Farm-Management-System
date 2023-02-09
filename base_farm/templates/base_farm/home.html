@@ -1,479 +1,358 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block content %}
 
-{#    <!-- Carousel Start -->#}
-{#    <div class="container-fluid p-0">#}
-{#        <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">#}
-{#            <div class="carousel-inner">#}
-{#                <div class="carousel-item active">#}
-{#                    <img class="w-100" src="images/carousel-1.jpg" alt="Image">#}
-{#                    <div class="carousel-caption top-0 bottom-0 start-0 end-0 d-flex flex-column align-items-center justify-content-center">#}
-{#                        <div class="text-start p-5" style="max-width: 900px;">#}
-{#                            <h3 class="text-white">Organic Vegetables</h3>#}
-{#                            <h1 class="display-1 text-white mb-md-4">Organic Vegetables For Healthy Life</h1>#}
-{#                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3">Explore</a>#}
-{#                            <a href="" class="btn btn-secondary py-md-3 px-md-5">Contact</a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="carousel-item">#}
-{#                    <img class="w-100" src="images/carousel-2.jpg" alt="Image">#}
-{#                    <div class="carousel-caption top-0 bottom-0 start-0 end-0 d-flex flex-column align-items-center justify-content-center">#}
-{#                        <div class="text-start p-5" style="max-width: 900px;">#}
-{#                            <h3 class="text-white">Organic Fruits</h3>#}
-{#                            <h1 class="display-1 text-white mb-md-4">Organic Fruits For Better Health</h1>#}
-{#                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3">Explore</a>#}
-{#                            <a href="" class="btn btn-secondary py-md-3 px-md-5">Contact</a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
+{#    <style>#}
+{#        .home-container {#}
+{#            display: grid;#}
+{#            grid-template-columns: 1fr 3fr 1fr;#}
+{#        }#}
+{#    </style>#}
+{#    <div class="home-container">#}
+{#        <div>#}
+{#            <h3>Categories</h3>#}
+{#            <hr>#}
+{#            <div>#}
+{#                <a href="{% url 'home' %}">All</a>#}
 {#            </div>#}
-{#            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"#}
-{#                data-bs-slide="prev">#}
-{#                <span class="carousel-control-prev-icon" aria-hidden="true"></span>#}
-{#                <span class="visually-hidden">Previous</span>#}
-{#            </button>#}
-{#            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"#}
-{#                data-bs-slide="next">#}
-{#                <span class="carousel-control-next-icon" aria-hidden="true"></span>#}
-{#                <span class="visually-hidden">Next</span>#}
-{#            </button>#}
-{#        </div>#}
-{#    </div>#}
-{#    <!-- Carousel End -->#}
-{##}
-{##}
-{#    <!-- Banner Start -->#}
-{#    <div class="container-fluid banner mb-5">#}
-{#        <div class="container">#}
-{#            <div class="row gx-0">#}
-{#                <div class="col-md-6">#}
-{#                    <div class="bg-primary bg-vegetable d-flex flex-column justify-content-center p-5" style="height: 300px;">#}
-{#                        <h3 class="text-white mb-3">Organic Vegetables</h3>#}
-{#                        <p class="text-white">Dolor magna ipsum elitr sea erat elitr amet ipsum stet justo dolor, amet lorem diam no duo sed dolore amet diam</p>#}
-{#                        <a class="text-white fw-bold" href="">Read More<i class="bi bi-arrow-right ms-2"></i></a>#}
-{#                    </div>#}
+{#            {% for category in categories %}#}
+{#                <div>#}
+{#                    <a href="{% url 'home' %}?q={{ category.name }}">{{ category.name }}</a>#}
+{#                    <!-- q represents queries -->#}
 {#                </div>#}
-{#                <div class="col-md-6">#}
-{#                    <div class="bg-secondary bg-fruit d-flex flex-column justify-content-center p-5" style="height: 300px;">#}
-{#                        <h3 class="text-white mb-3">Organic Fruits</h3>#}
-{#                        <p class="text-white">Dolor magna ipsum elitr sea erat elitr amet ipsum stet justo dolor, amet lorem diam no duo sed dolore amet diam</p>#}
-{#                        <a class="text-white fw-bold" href="">Read More<i class="bi bi-arrow-right ms-2"></i></a>#}
-{#                    </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#        <div>#}
+{#            <a href="{% url 'farm-register' %}" class="float-end">Register farm</a>#}
+{#            <div>#}
+{#                <h2>Home- FarmTech</h2>#}
+{#                <hr>#}
+{#                <div>#}
+{#                    {% for farm in farms %}#}
+{#                        <div>#}
+{#                            <a href="{% url 'update-farm' farm.id %}">Edit farm</a>#}
+{#                            <a href="{% url 'delete-farm' farm.id %}">Delete farm</a>#}
+{#                            <h5>{{ farm.id }}. <a#}
+{#                                    href="{% url 'farm' farm.id %}">{{ farm.name }}</a>--{{ farm.location }}--{{ farm.size }}#}
+{#                                -- {{ farm.is_mine }}</h5>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
 {#                </div>#}
 {#            </div>#}
 {#        </div>#}
+{#        <div>#}
+{#            <h3>Registered farms</h3>#}
+{#            <hr>#}
+{#            {% for registered_farm in registered_farms %}#}
+{#                <div>#}
+{#                    <a href="{% url 'home' %}?q={{ registered_farm.quantity }}">{{ registered_farm.quantity }}</a>#}
+{#                    <!-- q represents queries -->#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
 {#    </div>#}
-{#    <!-- Banner Start -->#}
 
+    <hr><br>
+    <!-- Start Shop Page  -->
+    <div class="shop-box-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
+                    <div class="right-product-box">
+                        <div class="product-item-filter row">
+                            <div class="col-12 col-sm-8 text-center text-sm-left">
+                                <div class="toolbar-sorter-right">
+                                    <span>Sort by </span>
+                                    <select id="basic" class="selectpicker show-tick form-control"
+                                            data-placeholder="$ USD">
+                                        <option data-display="Select">Nothing</option>
+                                        <option value="1">Popularity</option>
+                                        <option value="2">High Price → High Price</option>
+                                        <option value="3">Low Price → High Price</option>
+                                        <option value="4">Best Selling</option>
+                                    </select>
+                                </div>
+                                <p>Showing all 4 results</p>
+                            </div>
+                            <div class="col-12 col-sm-4 text-center text-sm-right">
+                                <ul class="nav nav-tabs ml-auto">
+                                    <li>
+                                        <a class="nav-link active" href="#grid-view" data-toggle="tab"> <i
+                                                class="fa fa-th"></i> </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" href="#list-view" data-toggle="tab"> <i
+                                                class="fa fa-list-ul"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
-{#    <!-- About Start -->#}
-{#    <div class="container-fluid about pt-5">#}
-{#        <div class="container">#}
-{#            <div class="row gx-5">#}
-{#                <div class="col-lg-6 mb-5 mb-lg-0">#}
-{#                    <div class="d-flex h-100 border border-5 border-primary border-bottom-0 pt-4">#}
-{#                        <img class="img-fluid mt-auto mx-auto" src="img/about.png">#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-6 pb-5">#}
-{#                    <div class="mb-3 pb-2">#}
-{#                        <h6 class="text-primary text-uppercase">About Us</h6>#}
-{#                        <h1 class="display-5">We Produce Organic Food For Your Family</h1>#}
-{#                    </div>#}
-{#                    <p class="mb-4">Tempor erat elitr at rebum at at clita. Diam dolor diam ipsum et tempor sit. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod magna dolore erat amet magna</p>#}
-{#                    <div class="row gx-5 gy-4">#}
-{#                        <div class="col-sm-6">#}
-{#                            <i class="fa fa-seedling display-1 text-secondary"></i>#}
-{#                            <h4>100% Organic</h4>#}
-{#                            <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>#}
-{#                        </div>#}
-{#                        <div class="col-sm-6">#}
-{#                            <i class="fa fa-award display-1 text-secondary"></i>#}
-{#                            <h4>Award Winning</h4>#}
-{#                            <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <!-- About End -->#}
-{##}
-{##}
-{#    <!-- Facts Start -->#}
-{#    <div class="container-fluid bg-primary facts py-5 mb-5">#}
-{#        <div class="container py-5">#}
-{#            <div class="row gx-5 gy-4">#}
-{#                <div class="col-lg-3 col-md-6">#}
-{#                    <div class="d-flex">#}
-{#                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">#}
-{#                            <i class="fa fa-star fs-4 text-white"></i>#}
-{#                        </div>#}
-{#                        <div class="ps-4">#}
-{#                            <h5 class="text-white">Our Experience</h5>#}
-{#                            <h1 class="display-5 text-white mb-0" data-toggle="counter-up">12345</h1>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-3 col-md-6">#}
-{#                    <div class="d-flex">#}
-{#                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">#}
-{#                            <i class="fa fa-users fs-4 text-white"></i>#}
-{#                        </div>#}
-{#                        <div class="ps-4">#}
-{#                            <h5 class="text-white">Farm Specialist</h5>#}
-{#                            <h1 class="display-5 text-white mb-0" data-toggle="counter-up">12345</h1>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-3 col-md-6">#}
-{#                    <div class="d-flex">#}
-{#                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">#}
-{#                            <i class="fa fa-check fs-4 text-white"></i>#}
-{#                        </div>#}
-{#                        <div class="ps-4">#}
-{#                            <h5 class="text-white">Complete Project</h5>#}
-{#                            <h1 class="display-5 text-white mb-0" data-toggle="counter-up">12345</h1>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-3 col-md-6">#}
-{#                    <div class="d-flex">#}
-{#                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">#}
-{#                            <i class="fa fa-mug-hot fs-4 text-white"></i>#}
-{#                        </div>#}
-{#                        <div class="ps-4">#}
-{#                            <h5 class="text-white">Happy Clients</h5>#}
-{#                            <h1 class="display-5 text-white mb-0" data-toggle="counter-up">12345</h1>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <!-- Facts End -->#}
-{##}
-{##}
-{#    <!-- Services Start -->#}
-{#    <div class="container-fluid py-5">#}
-{#        <div class="container">#}
-{#            <div class="row g-5">#}
-{#                <div class="col-lg-4 col-md-6">#}
-{#                    <div class="mb-3">#}
-{#                        <h6 class="text-primary text-uppercase">Services</h6>#}
-{#                        <h1 class="display-5">Organic Farm Services</h1>#}
-{#                    </div>#}
-{#                    <p class="mb-4">Tempor erat elitr at rebum at at clita. Diam dolor diam ipsum et tempor sit. Clita erat ipsum et lorem et sit sed stet labore</p>#}
-{#                    <a href="" class="btn btn-primary py-md-3 px-md-5">Contact Us</a>#}
-{#                </div>#}
-{#                <div class="col-lg-4 col-md-6">#}
-{#                    <div class="service-item bg-light text-center p-5">#}
-{#                        <i class="fa fa-carrot display-1 text-primary mb-3"></i>#}
-{#                        <h4>Fresh Vegetables</h4>#}
-{#                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-4 col-md-6">#}
-{#                    <div class="service-item bg-light text-center p-5">#}
-{#                        <i class="fa fa-apple-alt display-1 text-primary mb-3"></i>#}
-{#                        <h4>Fresh Fruits</h4>#}
-{#                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-4 col-md-6">#}
-{#                    <div class="service-item bg-light text-center p-5">#}
-{#                        <i class="fa fa-dog display-1 text-primary mb-3"></i>#}
-{#                        <h4>Healty Cattle</h4>#}
-{#                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-4 col-md-6">#}
-{#                    <div class="service-item bg-light text-center p-5">#}
-{#                        <i class="fa fa-tractor display-1 text-primary mb-3"></i>#}
-{#                        <h4>Modern Truck</h4>#}
-{#                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-4 col-md-6">#}
-{#                    <div class="service-item bg-light text-center p-5">#}
-{#                        <i class="fa fa-seedling display-1 text-primary mb-3"></i>#}
-{#                        <h4>Farming Plans</h4>#}
-{#                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <!-- Services End -->#}
+                        <div class="product-categorie-box">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+                                    <div class="row">
+                                        {% for farm in farms %}
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <div class="type-lb">
+                                                            <p class="sale">Sale</p>
+                                                        </div>
+                                                        <img src="{% static 'images2/img-pro-01.jpg' %}"
+                                                             class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="{% url 'farm' farm.id %}" data-toggle="tooltip"
+                                                                       data-placement="right"
+                                                                       title="View"><i class="fas fa-eye"></i></a></li>
+                                                                <li><a href="{% url 'update-farm' farm.id %}"
+                                                                       data-toggle="tooltip" data-placement="right"
+                                                                       title="Update farm"><i
+                                                                        class="fas fa-sync-alt"></i></a>
+                                                                </li>
+                                                                <li><a href="{% url 'delete-farm' farm.id %}"
+                                                                       data-toggle="tooltip" data-placement="right"
+                                                                       title="Delete Farm"><i class="far fa-heart"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                            <a class="cart"
+                                                               href="{% url 'farm' farm.id %}">{{ farm.name }}</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="why-text">
+                                                        <h4>{{ farm.description }}</h4>
+                                                        <h5> {{ farm.size }}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="list-view">
+                                    <div class="list-view-box">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <div class="type-lb">
+                                                            <p class="new">New</p>
+                                                        </div>
+                                                        <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="#" data-toggle="tooltip"
+                                                                       data-placement="right" title="View"><i
+                                                                        class="fas fa-eye"></i></a></li>
+                                                                <li><a href="#" data-toggle="tooltip"
+                                                                       data-placement="right" title="Compare"><i
+                                                                        class="fas fa-sync-alt"></i></a></li>
+                                                                <li><a href="#" data-toggle="tooltip"
+                                                                       data-placement="right" title="Add to Wishlist"><i
+                                                                        class="far fa-heart"></i></a></li>
+                                                            </ul>
 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                                <div class="why-text full-width">
+                                                    <h4>Lorem ipsum dolor sit amet</h4>
+                                                    <h5>
+                                                        <del>$ 60.00</del>
+                                                        $40.79
+                                                    </h5>
+                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien,
+                                                        imperdiet quis magna nec, iaculis ultrices ante. Integer vitae
+                                                        suscipit nisi. Morbi dignissim risus sit amet orci porta, eget
+                                                        aliquam purus
+                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in
+                                                        blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus,
+                                                        quis euismod ex volutpat in. Vestibulum eleifend eros ac
+                                                        lobortis aliquet.
+                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin
+                                                        quam. Praesent vulputate semper libero pulvinar consequat. Etiam
+                                                        ut placerat lectus.</p>
+                                                    <a class="btn hvr-hover" href="#">Add to Cart</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-view-box">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <div class="type-lb">
+                                                            <p class="sale">Sale</p>
+                                                        </div>
+                                                        <img src="images/img-pro-02.jpg" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="#" data-toggle="tooltip"
+                                                                       data-placement="right" title="View"><i
+                                                                        class="fas fa-eye"></i></a></li>
+                                                                <li><a href="#" data-toggle="tooltip"
+                                                                       data-placement="right" title="Compare"><i
+                                                                        class="fas fa-sync-alt"></i></a></li>
+                                                                <li><a href="#" data-toggle="tooltip"
+                                                                       data-placement="right" title="Add to Wishlist"><i
+                                                                        class="far fa-heart"></i></a></li>
+                                                            </ul>
 
-{#    <!-- Features Start -->#}
-{#    <div class="container-fluid bg-primary feature py-5 pb-lg-0 my-5">#}
-{#        <div class="container py-5 pb-lg-0">#}
-{#            <div class="mx-auto text-center mb-3 pb-2" style="max-width: 500px;">#}
-{#                <h6 class="text-uppercase text-secondary">Features</h6>#}
-{#                <h1 class="display-5 text-white">Why Choose Us!!!</h1>#}
-{#            </div>#}
-{#            <div class="row g-5">#}
-{#                <div class="col-lg-3">#}
-{#                    <div class="text-white mb-5">#}
-{#                        <div class="bg-secondary rounded-pill d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">#}
-{#                            <i class="fa fa-seedling fs-4 text-white"></i>#}
-{#                        </div>#}
-{#                        <h4 class="text-white">100% Organic</h4>#}
-{#                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita</p>#}
-{#                    </div>#}
-{#                    <div class="text-white">#}
-{#                        <div class="bg-secondary rounded-pill d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">#}
-{#                            <i class="fa fa-award fs-4 text-white"></i>#}
-{#                        </div>#}
-{#                        <h4 class="text-white">Award Winning</h4>#}
-{#                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita</p>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-6">#}
-{#                    <div class="d-block bg-white h-100 text-center p-5 pb-lg-0">#}
-{#                        <p>At et justo elitr amet sea at. Magna et sit vero at ipsum sit et dolores rebum. Magna sea eos sit dolor, ipsum amet no tempor ipsum eirmod lorem eirmod diam tempor dolor eos diam et et diam dolor ea. Clita est rebum amet dolore sit. Dolor stet dolor duo clita, vero dolor ipsum amet dolore magna lorem erat stet sed vero dolor</p>#}
-{#                        <img class="img-fluid" src="img/feature.png" alt="">#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-3">#}
-{#                    <div class="text-white mb-5">#}
-{#                        <div class="bg-secondary rounded-pill d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">#}
-{#                            <i class="fa fa-tractor fs-4 text-white"></i>#}
-{#                        </div>#}
-{#                        <h4 class="text-white">Modern Farming</h4>#}
-{#                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita</p>#}
-{#                    </div>#}
-{#                    <div class="text-white">#}
-{#                        <div class="bg-secondary rounded-pill d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">#}
-{#                            <i class="fa fa-phone-alt fs-4 text-white"></i>#}
-{#                        </div>#}
-{#                        <h4 class="text-white">24/7 Support</h4>#}
-{#                        <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita</p>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <!-- Features Start -->#}
-{##}
-{##}
-{#    <!-- Products Start -->#}
-{#    <div class="container-fluid py-5">#}
-{#        <div class="container">#}
-{#            <div class="mx-auto text-center mb-5" style="max-width: 500px;">#}
-{#                <h6 class="text-primary text-uppercase">Products</h6>#}
-{#                <h1 class="display-5">Our Fresh & Organic Products</h1>#}
-{#            </div>#}
-{#            <div class="owl-carousel product-carousel px-5">#}
-{#                <div class="pb-5">#}
-{#                    <div class="product-item position-relative bg-white d-flex flex-column text-center">#}
-{#                        <img class="img-fluid mb-4" src="img/product-1.png" alt="">#}
-{#                        <h6 class="mb-3">Organic Vegetable</h6>#}
-{#                        <h5 class="text-primary mb-0">$19.00</h5>#}
-{#                        <div class="btn-action d-flex justify-content-center">#}
-{#                            <a class="btn bg-primary py-2 px-3" href=""><i class="bi bi-cart text-white"></i></a>#}
-{#                            <a class="btn bg-secondary py-2 px-3" href=""><i class="bi bi-eye text-white"></i></a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="pb-5">#}
-{#                    <div class="product-item position-relative bg-white d-flex flex-column text-center">#}
-{#                        <img class="img-fluid mb-4" src="img/product-2.png" alt="">#}
-{#                        <h6 class="mb-3">Organic Vegetable</h6>#}
-{#                        <h5 class="text-primary mb-0">$19.00</h5>#}
-{#                        <div class="btn-action d-flex justify-content-center">#}
-{#                            <a class="btn bg-primary py-2 px-3" href=""><i class="bi bi-cart text-white"></i></a>#}
-{#                            <a class="btn bg-secondary py-2 px-3" href=""><i class="bi bi-eye text-white"></i></a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="pb-5">#}
-{#                    <div class="product-item position-relative bg-white d-flex flex-column text-center">#}
-{#                        <img class="img-fluid mb-4" src="img/product-1.png" alt="">#}
-{#                        <h6 class="mb-3">Organic Vegetable</h6>#}
-{#                        <h5 class="text-primary mb-0">$19.00</h5>#}
-{#                        <div class="btn-action d-flex justify-content-center">#}
-{#                            <a class="btn bg-primary py-2 px-3" href=""><i class="bi bi-cart text-white"></i></a>#}
-{#                            <a class="btn bg-secondary py-2 px-3" href=""><i class="bi bi-eye text-white"></i></a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="pb-5">#}
-{#                    <div class="product-item position-relative bg-white d-flex flex-column text-center">#}
-{#                        <img class="img-fluid mb-4" src="img/product-2.png" alt="">#}
-{#                        <h6 class="mb-3">Organic Vegetable</h6>#}
-{#                        <h5 class="text-primary mb-0">$19.00</h5>#}
-{#                        <div class="btn-action d-flex justify-content-center">#}
-{#                            <a class="btn bg-primary py-2 px-3" href=""><i class="bi bi-cart text-white"></i></a>#}
-{#                            <a class="btn bg-secondary py-2 px-3" href=""><i class="bi bi-eye text-white"></i></a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="pb-5">#}
-{#                    <div class="product-item position-relative bg-white d-flex flex-column text-center">#}
-{#                        <img class="img-fluid mb-4" src="img/product-1.png" alt="">#}
-{#                        <h6 class="mb-3">Organic Vegetable</h6>#}
-{#                        <h5 class="text-primary mb-0">$19.00</h5>#}
-{#                        <div class="btn-action d-flex justify-content-center">#}
-{#                            <a class="btn bg-primary py-2 px-3" href=""><i class="bi bi-cart text-white"></i></a>#}
-{#                            <a class="btn bg-secondary py-2 px-3" href=""><i class="bi bi-eye text-white"></i></a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <!-- Products End -->#}
-{##}
-{##}
-{#    <!-- Testimonial Start -->#}
-{#    <div class="container-fluid bg-testimonial py-5 my-5">#}
-{#        <div class="container py-5">#}
-{#            <div class="row justify-content-center">#}
-{#                <div class="col-lg-7">#}
-{#                    <div class="owl-carousel testimonial-carousel p-5">#}
-{#                        <div class="testimonial-item text-center text-white">#}
-{#                            <img class="img-fluid mx-auto p-2 border border-5 border-secondary rounded-circle mb-4" src="img/testimonial-2.jpg" alt="">#}
-{#                            <p class="fs-5">Dolores sed duo clita justo dolor et stet lorem kasd dolore lorem ipsum. At lorem lorem magna ut et, nonumy labore diam erat. Erat dolor rebum sit ipsum.</p>#}
-{#                            <hr class="mx-auto w-25">#}
-{#                            <h4 class="text-white mb-0">Client Name</h4>#}
-{#                        </div>#}
-{#                        <div class="testimonial-item text-center text-white">#}
-{#                            <img class="img-fluid mx-auto p-2 border border-5 border-secondary rounded-circle mb-4" src="img/testimonial-2.jpg" alt="">#}
-{#                            <p class="fs-5">Dolores sed duo clita justo dolor et stet lorem kasd dolore lorem ipsum. At lorem lorem magna ut et, nonumy labore diam erat. Erat dolor rebum sit ipsum.</p>#}
-{#                            <hr class="mx-auto w-25">#}
-{#                            <h4 class="text-white mb-0">Client Name</h4>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <!-- Testimonial End -->#}
-{##}
-{##}
-{#    <!-- Team Start -->#}
-{#    <div class="container-fluid py-5">#}
-{#        <div class="container">#}
-{#            <div class="mx-auto text-center mb-5" style="max-width: 500px;">#}
-{#                <h6 class="text-primary text-uppercase">The Team</h6>#}
-{#                <h1 class="display-5">We Are Professional Organic Farmers</h1>#}
-{#            </div>#}
-{#            <div class="row g-5">#}
-{#                <div class="col-lg-4 col-md-6">#}
-{#                    <div class="row g-0">#}
-{#                        <div class="col-10">#}
-{#                            <div class="position-relative">#}
-{#                                <img class="img-fluid w-100" src="img/team-1.jpg" alt="">#}
-{#                                <div class="position-absolute start-0 bottom-0 w-100 py-3 px-4" style="background: rgba(52, 173, 84, .85);">#}
-{#                                    <h4 class="text-white">Farmer Name</h4>#}
-{#                                    <span class="text-white">Designation</span>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="col-2">#}
-{#                            <div class="h-100 d-flex flex-column align-items-center justify-content-around bg-secondary py-5">#}
-{#                                <a class="btn btn-square rounded-circle bg-white" href="#"><i class="fab fa-twitter text-secondary"></i></a>#}
-{#                                <a class="btn btn-square rounded-circle bg-white" href="#"><i class="fab fa-facebook-f text-secondary"></i></a>#}
-{#                                <a class="btn btn-square rounded-circle bg-white" href="#"><i class="fab fa-linkedin-in text-secondary"></i></a>#}
-{#                                <a class="btn btn-square rounded-circle bg-white" href="#"><i class="fab fa-instagram text-secondary"></i></a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-4 col-md-6">#}
-{#                    <div class="row g-0">#}
-{#                        <div class="col-10">#}
-{#                            <div class="position-relative">#}
-{#                                <img class="img-fluid w-100" src="img/team-2.jpg" alt="">#}
-{#                                <div class="position-absolute start-0 bottom-0 w-100 py-3 px-4" style="background: rgba(52, 173, 84, .85);">#}
-{#                                    <h4 class="text-white">Farmer Name</h4>#}
-{#                                    <span class="text-white">Designation</span>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="col-2">#}
-{#                            <div class="h-100 d-flex flex-column align-items-center justify-content-around bg-secondary py-5">#}
-{#                                <a class="btn btn-square rounded-circle bg-white" href="#"><i class="fab fa-twitter text-secondary"></i></a>#}
-{#                                <a class="btn btn-square rounded-circle bg-white" href="#"><i class="fab fa-facebook-f text-secondary"></i></a>#}
-{#                                <a class="btn btn-square rounded-circle bg-white" href="#"><i class="fab fa-linkedin-in text-secondary"></i></a>#}
-{#                                <a class="btn btn-square rounded-circle bg-white" href="#"><i class="fab fa-instagram text-secondary"></i></a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-4 col-md-6">#}
-{#                    <div class="row g-0">#}
-{#                        <div class="col-10">#}
-{#                            <div class="position-relative">#}
-{#                                <img class="img-fluid w-100" src="img/team-3.jpg" alt="">#}
-{#                                <div class="position-absolute start-0 bottom-0 w-100 py-3 px-4" style="background: rgba(52, 173, 84, .85);">#}
-{#                                    <h4 class="text-white">Farmer Name</h4>#}
-{#                                    <span class="text-white">Designation</span>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="col-2">#}
-{#                            <div class="h-100 d-flex flex-column align-items-center justify-content-around bg-secondary py-5">#}
-{#                                <a class="btn btn-square rounded-circle bg-white" href="#"><i class="fab fa-twitter text-secondary"></i></a>#}
-{#                                <a class="btn btn-square rounded-circle bg-white" href="#"><i class="fab fa-facebook-f text-secondary"></i></a>#}
-{#                                <a class="btn btn-square rounded-circle bg-white" href="#"><i class="fab fa-linkedin-in text-secondary"></i></a>#}
-{#                                <a class="btn btn-square rounded-circle bg-white" href="#"><i class="fab fa-instagram text-secondary"></i></a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-    <!-- Team End -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                                <div class="why-text full-width">
+                                                    <h4>Lorem ipsum dolor sit amet</h4>
+                                                    <h5>
+                                                        <del>$ 60.00</del>
+                                                        $40.79
+                                                    </h5>
+                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien,
+                                                        imperdiet quis magna nec, iaculis ultrices ante. Integer vitae
+                                                        suscipit nisi. Morbi dignissim risus sit amet orci porta, eget
+                                                        aliquam purus
+                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in
+                                                        blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus,
+                                                        quis euismod ex volutpat in. Vestibulum eleifend eros ac
+                                                        lobortis aliquet.
+                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin
+                                                        quam. Praesent vulputate semper libero pulvinar consequat. Etiam
+                                                        ut placerat lectus.</p>
+                                                    <a class="btn hvr-hover" href="#">Add to Cart</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-view-box">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        <div class="type-lb">
+                                                            <p class="sale">Sale</p>
+                                                        </div>
+                                                        <img src="images/img-pro-03.jpg" class="img-fluid" alt="Image">
+                                                        <div class="mask-icon">
+                                                            <ul>
+                                                                <li><a href="#" data-toggle="tooltip"
+                                                                       data-placement="right" title="View"><i
+                                                                        class="fas fa-eye"></i></a></li>
+                                                                <li><a href="#" data-toggle="tooltip"
+                                                                       data-placement="right" title="Compare"><i
+                                                                        class="fas fa-sync-alt"></i></a></li>
+                                                                <li><a href="#" data-toggle="tooltip"
+                                                                       data-placement="right" title="Add to Wishlist"><i
+                                                                        class="far fa-heart"></i></a></li>
+                                                            </ul>
 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                                <div class="why-text full-width">
+                                                    <h4>Lorem ipsum dolor sit amet</h4>
+                                                    <h5>
+                                                        <del>$ 60.00</del>
+                                                        $40.79
+                                                    </h5>
+                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien,
+                                                        imperdiet quis magna nec, iaculis ultrices ante. Integer vitae
+                                                        suscipit nisi. Morbi dignissim risus sit amet orci porta, eget
+                                                        aliquam purus
+                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in
+                                                        blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus,
+                                                        quis euismod ex volutpat in. Vestibulum eleifend eros ac
+                                                        lobortis aliquet.
+                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin
+                                                        quam. Praesent vulputate semper libero pulvinar consequat. Etiam
+                                                        ut placerat lectus.</p>
+                                                    <a class="btn hvr-hover" href="#">Add to Cart</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
+                    <div class="product-categori">
+                        <div class="search-product">
+                            <form action="#">
+                                <input class="form-control" placeholder="Search here..." type="text">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                        <div class="filter-sidebar-left">
+                            <div class="title-left">
+                                <h3>Categories</h3>
+                            </div>
+                            <div class="list-group list-group-collapse list-group-sm list-group-tree"
+                                 id="list-group-men" data-children=".sub-men">
+                                <div class="list-group-collapse sub-men">
+                                    <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
+                                        <div class="list-group">
+                                            <a href="{% url 'home' %}"
+                                               class="list-group-item list-group-item-action active">All</a>
+                                            {% for category in categories %}
+                                                <a href="{% url 'home' %}?q={{ category.name }}"
+                                                   class="list-group-item list-group-item-action">{{ category.name }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-sidebar-left">
+                            <div class="title-left">
+                                <h3>Registered farms</h3>
+                            </div>
+                            <div class="list-group list-group-collapse list-group-sm list-group-tree"
+                                 id="list-group-men" data-children=".sub-men">
+                                <div class="list-group-collapse sub-men">
+                                    <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
+                                        <div class="list-group">
+                                            {% for registered_farm in registered_farms %}
+                                                <a href="{% url 'home' %}?q={{ registered_farm.quantity }}"
+                                                   class="list-group-item list-group-item-action">{{ registered_farm.quantity }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Shop Page -->
 
-{#    <!-- Blog Start -->#}
-{#    <div class="container-fluid py-5">#}
-{#        <div class="container">#}
-{#            <div class="mx-auto text-center mb-5" style="max-width: 500px;">#}
-{#                <h6 class="text-primary text-uppercase">Our Blog</h6>#}
-{#                <h1 class="display-5">Latest Articles From Our Blog Post</h1>#}
-{#            </div>#}
-{#            <div class="row g-5">#}
-{#                <div class="col-lg-4">#}
-{#                    <div class="blog-item position-relative overflow-hidden">#}
-{#                        <img class="img-fluid" src="img/blog-1.jpg" alt="">#}
-{#                        <a class="blog-overlay" href="">#}
-{#                            <h4 class="text-white">Lorem elitr magna stet eirmod labore amet</h4>#}
-{#                            <span class="text-white fw-bold">Jan 01, 2050</span>#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-4">#}
-{#                    <div class="blog-item position-relative overflow-hidden">#}
-{#                        <img class="img-fluid" src="img/blog-2.jpg" alt="">#}
-{#                        <a class="blog-overlay" href="">#}
-{#                            <h4 class="text-white">Lorem elitr magna stet eirmod labore amet</h4>#}
-{#                            <span class="text-white fw-bold">Jan 01, 2050</span>#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-lg-4">#}
-{#                    <div class="blog-item position-relative overflow-hidden">#}
-{#                        <img class="img-fluid" src="img/blog-3.jpg" alt="">#}
-{#                        <a class="blog-overlay" href="">#}
-{#                            <h4 class="text-white">Lorem elitr magna stet eirmod labore amet</h4>#}
-{#                            <span class="text-white fw-bold">Jan 01, 2050</span>#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <!-- Blog End -->#}
-
-
-
+    <!-- ALL JS FILES -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="js/jquery.superslides.min.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/inewsticker.js"></script>
+    <script src="js/bootsnav.js."></script>
+    <script src="js/images-loded.min.js"></script>
+    <script src="js/isotope.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/baguetteBox.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery.nicescroll.min.js"></script>
+    <script src="js/form-validator.min.js"></script>
+    <script src="js/contact-form-script.js"></script>
+    <script src="js/custom.js"></script>
     <!-- Back to Top -->
     <a href="#" class="btn btn-secondary py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
 
@@ -485,64 +364,5 @@
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-{#    <script src="{% static 'js/script.js' %}"></script>#}
-
-
-
-{#{% endblock content %}#}
-{#{% extends 'main.html' %}#}
-{##}
-{#{% block content %}#}
-    <style>
-        .home-container {
-            display: grid;
-            grid-template-columns: 1fr 3fr 1fr;
-        }
-    </style>
-    <div class="home-container">
-        <div>
-            <h3>Categories</h3>
-            <hr>
-            <div>
-                <a href="{% url 'home' %}">All</a>
-            </div>
-            {% for category in categories %}
-                <div>
-                    <a href="{% url 'home' %}?q={{ category.name }}">{{ category.name }}</a>
-                    <!-- q represents queries -->
-                </div>
-            {% endfor %}
-        </div>
-        <div>
-            <a href="{% url 'farm-register' %}" class="float-end">Register farm</a>
-            <div>
-                <h2>Home- FarmTech</h2>
-                <hr>
-                <div>
-                    {% for farm in farms %}
-                        <div>
-                            <a href="{% url 'update-farm' farm.id %}">Edit farm</a>
-                            <a href="{% url 'delete-farm' farm.id %}">Delete farm</a>
-                            <h5>{{ farm.id }}. <a
-                                    href="{% url 'farm' farm.id %}">{{ farm.name }}</a>--{{ farm.location }}--{{ farm.size }}
-                                -- {{ farm.is_mine }}</h5>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    <div>
-        <h3>Registered farms</h3>
-        <hr>
-         {% for registered_farm in registered_farms %}
-                <div>
-                    <a href="{% url 'home' %}?q={{ registered_farm.quantity }}">{{ registered_farm.quantity }}</a>
-                    <!-- q represents queries -->
-                </div>
-            {% endfor %}
-    </div>
-    </div>
 
 {% endblock %}

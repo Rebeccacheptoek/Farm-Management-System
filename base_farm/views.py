@@ -27,7 +27,7 @@ def registerUser(request):
             login(request, user)
             return redirect('login')
         else:
-            messages.error(request, ' An error occurred during registration')
+            messages.error(request, 'An error occurred during registration')
     return render(request, 'base_farm/register.html', {'form': form})
 
 
@@ -54,7 +54,7 @@ def loginPage(request):
 
     if request.method == 'POST':
         username = request.POST.get('username')
-        # email = request.POST.get('email')
+        email = request.POST.get('email')
         password = request.POST.get('password')
 
         try:

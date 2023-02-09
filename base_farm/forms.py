@@ -14,7 +14,7 @@ class FarmRegisterForm(ModelForm):
 class FarmForm(ModelForm):
     class Meta:
         model = Farm
-        fields = '__all__'
+        fields = ['name', 'description', 'size', 'location', 'is_mine']
 
 
 class CreateUserForm(UserCreationForm):
