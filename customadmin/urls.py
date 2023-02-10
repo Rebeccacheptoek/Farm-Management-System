@@ -5,5 +5,6 @@ from . import views
 
 urlpatterns = [
     path('custom-login/', views.admin_login, name='admin-login'),
-    path('back-home/', views.index, name='back-home'),
+    path('backend-home/', views.index, name='back-home'),
+    path('logout/', views.index, name='logout'),
 ]
