@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from .models import Crop
 
 from .forms import CropForm
 
@@ -40,7 +41,9 @@ def index(request):
 
 
 def crop(request):
-    return render(request, 'crop.html')
+    crops = Crop.objects.all()
+    context = {'crops': crops}
+    return render(request, 'crop.html', context)
 
 
 def generateReport(request):
@@ -60,4 +63,3 @@ def addCrop(request):
             return redirect('b-crop')
     context = {'form': form}
     return render(request, 'add_crop.html', context)
-
