@@ -35,3 +35,19 @@ def admin_login(request):
 
 def index(request):
     return render(request, 'index.html')
+
+
+def crop(request):
+    return render(request, 'crop.html')
+
+
+def generateReport(request):
+    return render(request, 'generate_report.html')
+
+
+def farm(request):
+    return render(request, 'farm.html')
+
+
+def addCrop(request):
+    return render(request, 'add_crop.html')
