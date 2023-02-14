@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
+from .forms import CropForm
+
 
 # Create your views here.
 def admin_login(request):
@@ -50,4 +52,12 @@ def farm(request):
 
 
 def addCrop(request):
-    return render(request, 'add_crop.html')
+    form = CropForm()
+    if request.method == 'POST':
+        form = CropForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('b-crop')
+    context = {'form': form}
+    return render(request, 'add_crop.html', context)
+
