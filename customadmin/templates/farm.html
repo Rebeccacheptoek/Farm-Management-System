@@ -36,6 +36,11 @@
                         <td>{{ farm.size }}</td>
                         <td>{{ farm.location }}</td>
                         <td>{{ farm.is_mine }}</td>
+                        <td><a href="{% url 'edit-farm' farm.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fa-sharp fa-solid fa-file-pen"></i>Edit</a>
+                            <a href="{% url 'delete-farm' farm.id %}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm">
+                            <i class="fa-sharp fa-solid fa-file-pen"></i>Delete</a>
+                        </td>
                     </tr>
                     {% endfor %}
 

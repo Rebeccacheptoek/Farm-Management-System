@@ -67,6 +67,19 @@ def createFarm(request):
     return render(request, 'create_farm.html', context)
 
 
+def updateFarm(request, pk):
+    farm = Farm.objects.get(id=pk)
+    form = FarmForm(instance=farm)
+    if request.method == 'POST':
+        form = FarmForm(request.POST, instance=farm)
+        if form.is_valid():
+            form.save()
+            return redirect('farm')
+
+    context = {'form': form}
+    return render(request, 'create_farm.html', context)
+
+
 def addCrop(request):
     form = CropForm()
     if request.method == 'POST':
