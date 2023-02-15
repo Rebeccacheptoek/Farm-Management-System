@@ -89,3 +89,11 @@ def addCrop(request):
             return redirect('b-crop')
     context = {'form': form}
     return render(request, 'add_crop.html', context)
+
+
+def delete(request, pk):
+    farm = Farm.objects.get(id=pk)
+    if request.method == 'POST':
+        farm.delete()
+        return redirect('farm')
+    return render(request, 'delete.html', {'obj': farm})

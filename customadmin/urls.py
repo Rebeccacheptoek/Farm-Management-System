@@ -11,6 +11,7 @@ urlpatterns = [
     path('generate-report/', views.generateReport, name='generate-report'),
     path('farm/', views.farm, name='farm'),
     path('edit-farm/<str:pk>', views.updateFarm, name='edit-farm'),
+    path('delete/<str:pk>', views.delete, name='delete'),
     path('add-farm/', views.createFarm, name='add-farm'),
     path('add-crop/', views.addCrop, name='add-crop'),
 
