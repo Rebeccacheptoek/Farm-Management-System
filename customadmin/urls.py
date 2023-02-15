@@ -10,6 +10,7 @@ urlpatterns = [
     path('b-crop/', views.crop, name='b-crop'),
     path('generate-report/', views.generateReport, name='generate-report'),
     path('farm/', views.farm, name='farm'),
+    path('add-farm/', views.createFarm, name='add-farm'),
     path('add-crop/', views.addCrop, name='add-crop'),
 
 

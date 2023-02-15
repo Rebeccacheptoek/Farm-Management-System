@@ -3,9 +3,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from .models import Crop
+from .models import Crop, Farm
 
-from .forms import CropForm
+from .forms import CropForm, FarmForm
 
 
 # Create your views here.
@@ -51,7 +51,20 @@ def generateReport(request):
 
 
 def farm(request):
-    return render(request, 'farm.html')
+    farms = Farm.objects.all()
+    context = {'farms': farms}
+    return render(request, 'farm.html', context)
+
+
+def createFarm(request):
+    form = FarmForm()
+    if request.method == 'POST':
+        form = FarmForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('farm')
+    context = {'form': form}
+    return render(request, 'create_farm.html', context)
 
 
 def addCrop(request):

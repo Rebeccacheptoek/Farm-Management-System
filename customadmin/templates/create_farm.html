@@ -4,7 +4,7 @@
 {% block content %}
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Add Crop
+        Create Farm
     </button>
 
     <!-- Modal -->
@@ -12,15 +12,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Crop</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create farm</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="contactForm" method="POST" action="{% url 'add-crop' %}">
+                    <form id="contactForm" method="POST" action="{% url 'add-farm' %}">
                         {% csrf_token %}
                         {{ crispy }}
                         <div class="form-group">
-                            <label for="name">Crop Name:</label>
+                            <label for="name">Farm Name:</label>
 {#                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name...">#}
                             {{ form.name }}
                         </div>
@@ -31,10 +31,22 @@
                             {{ form.description }}
                         </div>
                         <div class="form-group">
-                            <label for="duration">Duration:</label>
+                            <label for="duration">Size:</label>
 {#                            <input type="text" class="form-control" id="duration" name="duration"#}
 {#                                   placeholder="Duration in months..">#}
-                            {{ form.duration }}
+                            {{ form.size }}
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Location:</label>
+{#                            <input type="text" class="form-control" id="duration" name="duration"#}
+{#                                   placeholder="Duration in months..">#}
+                            {{ form.location }}
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Ownership:</label>
+{#                            <input type="text" class="form-control" id="duration" name="duration"#}
+{#                                   placeholder="Duration in months..">#}
+                            {{ form.is_mine }}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -47,13 +59,6 @@
             </div>
         </div>
     </div>
-
-    {#    <form method="post" class="my-class">#}
-    {#        {{ form|crispy }}#}
-    {#    </form>#}
-
-
-
 
     <!-- JavaScript code to handle form submission -->
     <script>
