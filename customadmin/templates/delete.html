@@ -2,41 +2,66 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-    <form action="" method="post">
-    {% csrf_token %}
-        {{ crispy }}
-        <p>Are you sure you want to delete <b>"{{ obj }}"</b>?</p>
-        <a href="{{ request.META.HTTP_REFERER }}">Go Back</a>
-        <input type="submit" value="Confirm">
-    </form>
+{#    <form action="" method="post">#}
+{#    {% csrf_token %}#}
+{#        {{ crispy }}#}
+{#        <p>Are you sure you want to delete <b>"{{ obj }}"</b>?</p>#}
+{#        <a href="{{ request.META.HTTP_REFERER }}">Go Back</a>#}
+{#        <input type="submit" value="Confirm">#}
+{#    </form>#}
+
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Delete
+    </button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Crop</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm" method="POST" action="">
+                        {% csrf_token %}
+                        {{ crispy }}
+                        <div class="form-group">
+                            <p>Are you sure you want to delete <b>"{{ obj }}"</b>?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{{ request.META.HTTP_REFERER }}">Cancel</a>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
 
-
-{#        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
-{#        <div class="modal-dialog">#}
-{#            <div class="modal-content">#}
-{#                <div class="modal-header">#}
-{#                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Crop</h1>#}
-{#                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
-{#                </div>#}
-{#                <div class="modal-body">#}
-{#                    <form id="contactForm" method="POST" action="">#}
-{#                        {% csrf_token %}#}
-{#                        {{ crispy }}#}
-{#                        <div class="form-group">#}
-{#                            <p>Are you sure you want to delete <b>"{{ obj }}"</b>?</p>#}
-{#                        </div>#}
-{#                        <div class="modal-footer">#}
-{#                            <a href="{{ request.META.HTTP_REFERER }}">Cancel</a>#}
-{#                            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>#}
-{#                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>#}
-{#                        </div>#}
-{#                    </form>#}
-{#                </div>#}
-{##}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
+     <!-- JavaScript code to handle form submission -->
+    <script>
+        $(document).ready(function () {
+            $('#contactForm').on('submit', function (event) {
+                event.preventDefault(); // prevent default form submission
+                $.ajax({
+                    type: 'POST',
+                    url: '/contact/', // URL to handle the form submission
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        // handle successful form submission
+                        $('#myModal .modal-body').html(response);
+                    },
+                    error: function (response) {
+                        // handle form submission errors
+                        $('#myModal .modal-body').html(response);
+                    }
+                });
+            });
+        });
+    </script>
 
 {% endblock content %}
