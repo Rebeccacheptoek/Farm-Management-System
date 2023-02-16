@@ -55,17 +55,6 @@ def index(request):
     return render(request, 'index.html')
 
 
-def crop(request):
-    crops = Crop.objects.all()
-    context = {'crops': crops}
-    return render(request, 'crop.html', context)
-
-
-@login_required(login_url='custom-login')
-def generateReport(request):
-    return render(request, 'generate_report.html')
-
-
 def farm(request):
     farms = Farm.objects.all()
     context = {'farms': farms}
@@ -98,6 +87,24 @@ def updateFarm(request, pk):
     return render(request, 'create_farm.html', context)
 
 
+def crop(request):
+    crops = Crop.objects.all()
+    context = {'crops': crops}
+    return render(request, 'crop.html', context)
+
+
+@login_required(login_url='custom-login')
+def addCrop(request):
+    form = CropForm()
+    if request.method == 'POST':
+        form = CropForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('b-crop')
+    context = {'form': form}
+    return render(request, 'add_crop.html', context)
+
+
 @login_required(login_url='custom-login')
 def updateCrop(request, pk):
     crop = Crop.objects.get(id=pk)
@@ -113,15 +120,8 @@ def updateCrop(request, pk):
 
 
 @login_required(login_url='custom-login')
-def addCrop(request):
-    form = CropForm()
-    if request.method == 'POST':
-        form = CropForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('b-crop')
-    context = {'form': form}
-    return render(request, 'add_crop.html', context)
+def generateReport(request):
+    return render(request, 'generate_report.html')
 
 
 @login_required(login_url='custom-login')

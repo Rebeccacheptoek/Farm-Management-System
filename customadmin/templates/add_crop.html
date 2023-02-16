@@ -16,7 +16,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="contactForm" method="POST" action="{% url 'add-crop' %}">
+                    <form id="contactForm" method="POST" action="">
                         {% csrf_token %}
                         {{ crispy }}
                         <div class="form-group">
@@ -62,7 +62,7 @@
                 event.preventDefault(); // prevent default form submission
                 $.ajax({
                     type: 'POST',
-                    url: 'add-crop/', // URL to handle the form submission
+                    url: '/contact/', // URL to handle the form submission
                     data: $(this).serialize(),
                     success: function (response) {
                         // handle successful form submission
