@@ -1,12 +1,11 @@
 # Farm Recording System
 
 This is a farm recording system that allows farmers to keep track of various aspects of their farm, such as livestock, crops, and equipment.
+We'll focus on crops for now
 
 ## Features
 
 The farm recording system includes the following features:
-
-- Livestock recording: Keep track of the number and type of livestock on the farm, as well as their age, gender, and other relevant information.
 
 - Crop recording: Record information about the crops grown on the farm, including the type of crop, planting and harvesting dates, yield, and any treatments applied.
 
@@ -38,4 +37,4 @@ If you would like to contribute to the development of the farm recording system,
 
 ## Credits
 
-The farm recording system was developed by [Your Name].
+The farm recording system was developed by Rebecca Cheptoek.
