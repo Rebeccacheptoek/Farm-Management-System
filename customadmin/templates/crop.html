@@ -1,7 +1,7 @@
 {% extends 'admin/base.html' %}
 
 {% block content %}
-    <!-- DataTales Example -->
+    <!-- DataTables Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
         <div>
@@ -34,6 +34,13 @@
                         <td>{{ crop.name }}</td>
                         <td>{{ crop.description }}</td>
                         <td>{{ crop.duration }}</td>
+                     <td><a href="" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+                            <i class="fas fa-eye"></i>View</a>
+                         <a href="{% url 'edit-crop' crop.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fa-sharp fa-solid fa-file-pen"></i>Edit</a>
+                            <a href="{% url 'delete' crop.id %}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm">
+                            <i class="fa-solid fa-trash"></i>Delete</a>
+                        </td>
                     </tr>
                     {% endfor %}
 

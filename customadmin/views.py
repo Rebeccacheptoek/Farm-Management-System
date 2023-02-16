@@ -99,6 +99,20 @@ def updateFarm(request, pk):
 
 
 @login_required(login_url='custom-login')
+def updateCrop(request, pk):
+    crop = Crop.objects.get(id=pk)
+    form = CropForm(instance=crop)
+    if request.method == 'POST':
+        form = CropForm(request.POST, instance=crop)
+        if form.is_valid():
+            form.save()
+            return redirect('crop')
+
+    context = {'form': form}
+    return render(request, 'add_crop.html', context)
+
+
+@login_required(login_url='custom-login')
 def addCrop(request):
     form = CropForm()
     if request.method == 'POST':

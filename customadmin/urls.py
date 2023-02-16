@@ -15,6 +15,7 @@ urlpatterns = [
     path('delete/<str:pk>', views.delete, name='delete'),
     path('add-farm/', views.createFarm, name='add-farm'),
     path('add-crop/', views.addCrop, name='add-crop'),
+    path('edit-crop/<str:pk>', views.updateCrop, name='edit-crop'),
 
 
     # b- for backend

@@ -62,7 +62,7 @@
                 event.preventDefault(); // prevent default form submission
                 $.ajax({
                     type: 'POST',
-                    url: '/contact/', // URL to handle the form submission
+                    url: 'add-crop/', // URL to handle the form submission
                     data: $(this).serialize(),
                     success: function (response) {
                         // handle successful form submission
