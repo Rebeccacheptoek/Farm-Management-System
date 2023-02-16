@@ -14,3 +14,9 @@ class FarmForm(ModelForm):
     class Meta:
         model = Farm
         fields = ['name', 'description', 'size', 'location', 'is_mine']
+
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']

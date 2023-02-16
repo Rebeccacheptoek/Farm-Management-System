@@ -5,7 +5,8 @@ from . import views
 
 urlpatterns = [
     path('custom-login/', views.admin_login, name='admin-login'),
-    # path('', views.index, name='back-home'),
+    path('update-user/', views.updateUser, name='update-user'),
+    path('backend-home/', views.index, name='backend-home'),
     path('logout/', views.index, name='logout'),
     path('b-crop/', views.crop, name='b-crop'),
     path('generate-report/', views.generateReport, name='generate-report'),
