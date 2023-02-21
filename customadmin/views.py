@@ -1,11 +1,14 @@
 from django.contrib import messages
+from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .models import Crop, Farm
 
+from .models import Crop, Farm, FarmRegister, FarmCrop, FarmLease, FarmNotes, Category
+from slick_reporting.views import SlickReportView
+from slick_reporting.fields import SlickReportField
 from .forms import CropForm, FarmForm, UserForm
 
 
@@ -120,14 +123,33 @@ def updateCrop(request, pk):
 
 
 @login_required(login_url='custom-login')
-def generateReport(request):
-    return render(request, 'generate_report.html')
-
-
-@login_required(login_url='custom-login')
 def delete(request, pk):
     farm = Farm.objects.get(id=pk)
     if request.method == 'POST':
         farm.delete()
         return redirect('farm')
     return render(request, 'delete.html', {'obj': farm})
+
+
+# @login_required(login_url='custom-login')
+# def generateReport(request):
+#     return render(request, 'generate_report.html')
+
+
+def TotalFarmExpenses(SlickReportView):
+    report_model = FarmRegister
+    date_field = 'date_created'
+    group_by = 'farm_crop_id'
+    columns = ['title',
+               SlickReportField.create(method=Sum, field='total_cost', name='total__cost', verbose_name='Total spent $')
+               ]
+
+    # Charts
+    charts_settings = [
+        {
+            'type': 'bar',
+            'data_source': 'total__cost',
+            'title_source': 'title',
+        },
+    ]
+    return render(SlickReportView, 'generate_report.html')
