@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'report_builder',
     'customadmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,7 +41,7 @@ INSTALLED_APPS = [
     'base_farm.apps.BaseFarmConfig',
     'crispy_forms',
     'crispy_bootstrap5',
-    'slick_reporting',
+    # 'slick_reporting',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +64,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.static',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -133,22 +135,22 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # SLICK_REPORTING_DEFAULT_START_DATE =
 
-SLICK_REPORTING_DEFAULT_END_DATE = DEFAULT_AUTO_FIELD
+# SLICK_REPORTING_DEFAULT_END_DATE = DEFAULT_AUTO_FIELD
 
-SLICK_REPORTING_FORM_MEDIA = {
-    'css': {
-        'all': (
-            'https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css',
-            'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css',
-        )
-    },
-    'js': (
-        'https://code.jquery.com/jquery-3.3.1.slim.min.js',
-        'https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js',
-        'https://code.highcharts.com/highcharts.js',
-    )
-}
+# SLICK_REPORTING_FORM_MEDIA = {
+#     'css': {
+#         'all': (
+#             'https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css',
+#             'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css',
+#         )
+#     },
+#     'js': (
+#         'https://code.jquery.com/jquery-3.3.1.slim.min.js',
+#         'https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js',
+#         'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js',
+#         'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js',
+#         'https://code.highcharts.com/highcharts.js',
+#     )
+# }
 
 # SLICK_REPORTING_DEFAULT_CHARTS_ENGINE =

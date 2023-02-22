@@ -7,8 +7,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
 from .models import Crop, Farm, FarmRegister, FarmCrop, FarmLease, FarmNotes, Category
-from slick_reporting.views import SlickReportView
-from slick_reporting.fields import SlickReportField
+# from slick_reporting.views import SlickReportView
+# from slick_reporting.fields import SlickReportField
 from .forms import CropForm, FarmForm, UserForm
 
 
