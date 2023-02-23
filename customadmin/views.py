@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Crop, Farm, FarmRegister, FarmCrop, FarmLease, FarmNotes, Category
 # from slick_reporting.views import SlickReportView
 # from slick_reporting.fields import SlickReportField
-from .forms import CropForm, FarmForm, UserForm
+from .forms import CropForm, FarmForm, UserForm, CategoryForm, FarmRegisterForm, FarmNoteForm, FarmCropForm, \
+    FarmLeaseForm
 
 
 # Create your views here.
@@ -130,9 +131,20 @@ def updateCrop(request, pk):
 
 
 def category(request):
-    category = Category.objects.all()
-    context = {'category': category}
+    categories = Category.objects.all()
+    context = {'categories': categories}
     return render(request, 'category.html', context)
+
+
+def addCategory(request):
+    form = CategoryForm()
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('category')
+    context = {'form': form}
+    return render(request, 'add_category.html')
 
 
 def farmLease(request):
@@ -141,10 +153,32 @@ def farmLease(request):
     return render(request, 'farm_lease.html', context)
 
 
+def addFarmLease(request):
+    form = FarmLeaseForm()
+    if request.method == 'POST':
+        form = FarmLeaseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('farm-lease')
+    context = {'form': form}
+    return render(request, 'add_farm_lease.html', context)
+
+
 def farmCrop(request):
     farm_crops = FarmCrop.objects.all()
     context = {'farm_crops': farm_crops}
     return render(request, 'farm_crop.html', context)
+
+
+def addFarmCrop(request):
+    form = FarmCropForm()
+    if request.method == 'POST':
+        form = FarmCropForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('farm-crop')
+    context = {'form': form}
+    return render(request, 'add_farm_crop.html', context)
 
 
 def farmNote(request):
@@ -153,10 +187,33 @@ def farmNote(request):
     return render(request, 'farm_notes.html', context)
 
 
+def addFarmNote(request):
+    form = FarmNoteForm()
+    if request.method == 'POST':
+        form = FarmNoteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('farm-note')
+    context = {'form': form}
+    return render(request, 'add_farm_note.html', context)
+
+
 def farmRegister(request):
     farm_registers = FarmRegister.objects.all()
     context = {'farm_registers': farm_registers}
     return render(request, 'farm_register.html', context)
+
+
+def addFarmRegister(request):
+    form = FarmRegisterForm()
+    if request.method == 'POST':
+        form = FarmRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('farm-register')
+    context = {'form': form}
+    return render(request, 'add_farm_register.html', context)
+
 
 @login_required(login_url='custom-login')
 def delete(request, pk):
@@ -165,7 +222,6 @@ def delete(request, pk):
         farm.delete()
         return redirect('farm')
     return render(request, 'delete.html', {'obj': farm})
-
 
 # @login_required(login_url='custom-login')
 # def generateReport(request):

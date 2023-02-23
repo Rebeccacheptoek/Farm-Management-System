@@ -21,11 +21,20 @@ urlpatterns = [
     path('edit-farm/<str:pk>', views.updateFarm, name='edit-farm'),
 
     path('category', views.category, name='category'),
+    path('add-category', views.addCategory, name='add-category'),
 
     path('farm-notes', views.farmNote, name='farm-note'),
+    path('add-farm-notes', views.addFarmNote, name='add-farm-note'),
+
     path('farm-lease', views.farmLease, name='farm-lease'),
+    path('add-farm-lease', views.addFarmLease, name='add-farm-lease'),
+
     path('farm-crop', views.farmCrop, name='farm-crop'),
-    path('farm-register', views.farmRegister, name='farm-register'),
+    path('add-farm-crop', views.addFarmCrop, name='add-farm-crop'),
+
+
+    path('farm-register/', views.farmRegister, name='farm-register'),
+    path('add-farm-register/', views.addFarmRegister, name='add-farm-register'),
 
     # path('generate-report/', views.generateReport, name='generate-report'),
     # path('report/', views.TotalFarmExpenses, name='report'),
