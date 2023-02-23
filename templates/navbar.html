@@ -1,61 +1,80 @@
-<!-- Topbar Start -->
-<div class="container-fluid px-5 d-none d-lg-block">
-    <div class="row gx-5 py-3 align-items-center">
-        <div class="col-lg-3">
-            <div class="d-flex align-items-center justify-content-start">
-                <i class="bi bi-phone-vibrate fs-1 text-primary me-2"></i>
-                <h2 class="mb-0">+012 345 6789</h2>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="d-flex align-items-center justify-content-center">
-                <a href="index.html" class="navbar-brand ms-lg-5">
-                    <h1 class="m-0 display-4 text-primary"><span class="text-secondary">Farm</span>Tech</h1>
-                </a>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="d-flex align-items-center justify-content-end">
-                <a class="btn btn-primary btn-square rounded-circle me-2" href="#"><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-primary btn-square rounded-circle me-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-primary btn-square rounded-circle me-2" href="#"><i
-                        class="fab fa-linkedin-in"></i></a>
-                <a class="btn btn-primary btn-square rounded-circle" href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Topbar End -->
+{#<!-- Topbar Start -->#}
+{#<div class="container-fluid px-5 d-none d-lg-block">#}
+{#    <div class="row gx-5 py-3 align-items-center">#}
+{#        <div class="col-lg-3">#}
+{#            <div class="d-flex align-items-center justify-content-start">#}
+{#                <i class="bi bi-phone-vibrate fs-1 text-primary me-2"></i>#}
+{#                <h2 class="mb-0">+012 345 6789</h2>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col-lg-6">#}
+{#            <div class="d-flex align-items-center justify-content-center">#}
+{#                <a href="index.html" class="navbar-brand ms-lg-5">#}
+{#                    <h1 class="m-0 display-4 text-primary"><span class="text-secondary">Farm</span>Tech</h1>#}
+{#                </a>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col-lg-3">#}
+{#            <div class="d-flex align-items-center justify-content-end">#}
+{#                <a class="btn btn-primary btn-square rounded-circle me-2" href="#"><i class="fab fa-twitter"></i></a>#}
+{#                <a class="btn btn-primary btn-square rounded-circle me-2" href="#"><i class="fab fa-facebook-f"></i></a>#}
+{#                <a class="btn btn-primary btn-square rounded-circle me-2" href="#"><i#}
+{#                        class="fab fa-linkedin-in"></i></a>#}
+{#                <a class="btn btn-primary btn-square rounded-circle" href="#"><i class="fab fa-instagram"></i></a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{#<!-- Topbar End -->#}
+{##}
+{##}
+{#<!-- Navbar Start -->#}
+{#<nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5">#}
+{#    <a href="{% url 'home' %}" class="navbar-brand d-flex d-lg-none">#}
+{#        <h1 class="m-0 display-4 text-secondary"><span class="text-white">Farm</span>Tech</h1>#}
+{#    </a>#}
+{#    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">#}
+{#        <span class="navbar-toggler-icon"></span>#}
+{#    </button>#}
+{#    <div class="nav navbar-nav">#}
+{#        <div class="navbar-nav mx-auto py-0">#}
+{#            <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>#}
+{#            <a href="#" class="nav-item nav-link">About</a>#}
+{#            <div class="nav-item dropdown">#}
+{#                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>#}
+{#                <div class="dropdown-menu m-0">#}
+{#                    <a href="blog.html" class="dropdown-item">Blog Grid</a>#}
+{#                    <a href="detail.html" class="dropdown-item">Blog Detail</a>#}
+{#                    <a href="feature.html" class="dropdown-item">Features</a>#}
+{#                    <a href="team.html" class="dropdown-item">The Team</a>#}
+{#                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>#}
+{#                </div>#}
+{#            </div>#}
+{#            <a href="#" class="nav-item nav-link">Generate Reports</a>#}
+{#            <a href="{% url 'login' %}" class="nav-item nav-link float-end">Login</a>#}
+{#            <a href="{% url 'register' %}" class="nav-item nav-link float-end">Register</a>#}
+{#             <a href="{% url 'create-farm' %}" class="nav-item nav-link float-end">Create Farm</a>#}
+{#        </div>#}
+{#    </div>#}
+{#</nav>#}
+{#<!-- Navbar End -->#}
+{##}
 
 
-<!-- Navbar Start -->
-<nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5">
-    <a href="{% url 'home' %}" class="navbar-brand d-flex d-lg-none">
-        <h1 class="m-0 display-4 text-secondary"><span class="text-white">Farm</span>Tech</h1>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="nav navbar-nav">
-        <div class="navbar-nav mx-auto py-0">
-            <a href="{% url 'home' %}" class="nav-item nav-link active">Home</a>
-            <a href="#" class="nav-item nav-link">About</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                <div class="dropdown-menu m-0">
-                    <a href="blog.html" class="dropdown-item">Blog Grid</a>
-                    <a href="detail.html" class="dropdown-item">Blog Detail</a>
-                    <a href="feature.html" class="dropdown-item">Features</a>
-                    <a href="team.html" class="dropdown-item">The Team</a>
-                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+ <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">Farm Tech</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Sign in</a></li>
+                    </ul>
                 </div>
             </div>
-            <a href="#" class="nav-item nav-link">Generate Reports</a>
-            <a href="{% url 'login' %}" class="nav-item nav-link float-end">Login</a>
-            <a href="{% url 'register' %}" class="nav-item nav-link float-end">Register</a>
-             <a href="{% url 'create-farm' %}" class="nav-item nav-link float-end">Create Farm</a>
-        </div>
-    </div>
-</nav>
-<!-- Navbar End -->
-
+        </nav>

@@ -1,368 +1,523 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-
-{#    <style>#}
-{#        .home-container {#}
-{#            display: grid;#}
-{#            grid-template-columns: 1fr 3fr 1fr;#}
-{#        }#}
-{#    </style>#}
-{#    <div class="home-container">#}
-{#        <div>#}
-{#            <h3>Categories</h3>#}
-{#            <hr>#}
-{#            <div>#}
-{#                <a href="{% url 'home' %}">All</a>#}
-{#            </div>#}
-{#            {% for category in categories %}#}
-{#                <div>#}
-{#                    <a href="{% url 'home' %}?q={{ category.name }}">{{ category.name }}</a>#}
-{#                    <!-- q represents queries -->#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#        </div>#}
-{#        <div>#}
-{#            <a href="{% url 'farm-register' %}" class="float-end">Register farm</a>#}
-{#            <div>#}
-{#                <h2>Home- FarmTech</h2>#}
-{#                <hr>#}
-{#                <div>#}
-{#                    {% for farm in farms %}#}
-{#                        <div>#}
-{#                            <a href="{% url 'update-farm' farm.id %}">Edit farm</a>#}
-{#                            <a href="{% url 'delete-farm' farm.id %}">Delete farm</a>#}
-{#                            <h5>{{ farm.id }}. <a#}
-{#                                    href="{% url 'farm' farm.id %}">{{ farm.name }}</a>--{{ farm.location }}--{{ farm.size }}#}
-{#                                -- {{ farm.is_mine }}</h5>#}
+{#    <!-- Start Farm Page  -->#}
+{#    <div class="shop-box-inner">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">#}
+{#                    <div class="right-product-box">#}
+{#                        <div class="product-item-filter row">#}
+{#                            <div class="col-12 col-sm-8 text-center text-sm-left">#}
+{#                                <div class="toolbar-sorter-right">#}
+{#                                    <span>Sort by </span>#}
+{#                                    <select id="basic" class="selectpicker show-tick form-control"#}
+{#                                            data-placeholder="$ USD">#}
+{#                                        <option data-display="Select">Nothing</option>#}
+{#                                        <option value="1">Popularity</option>#}
+{#                                        <option value="2">High Price → High Price</option>#}
+{#                                        <option value="3">Low Price → High Price</option>#}
+{#                                        <option value="4">Best Selling</option>#}
+{#                                    </select>#}
+{#                                </div>#}
+{#                                <p>Showing all 4 results</p>#}
+{#                            </div>#}
+{#                            <div class="col-12 col-sm-4 text-center text-sm-right">#}
+{#                                <ul class="nav nav-tabs ml-auto">#}
+{#                                    <li>#}
+{#                                        <a class="nav-link active" href="#grid-view" data-toggle="tab"> <i#}
+{#                                                class="fa fa-th"></i> </a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a class="nav-link" href="#list-view" data-toggle="tab"> <i#}
+{#                                                class="fa fa-list-ul"></i> </a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </div>#}
 {#                        </div>#}
-{#                    {% endfor %}#}
+{##}
+{#                        <div class="product-categorie-box">#}
+{#                            <div class="tab-content">#}
+{#                                <div role="tabpanel" class="tab-pane fade show active" id="grid-view">#}
+{#                                    <div class="row">#}
+{#                                        {% for farm in farms %}#}
+{#                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">#}
+{#                                                <div class="products-single fix">#}
+{#                                                    <div class="box-img-hover">#}
+{#                                                        <div class="type-lb">#}
+{#                                                            <p class="sale">Sale</p>#}
+{#                                                        </div>#}
+{#                                                        <img src="{% static 'images2/img-pro-01.jpg' %}"#}
+{#                                                             class="img-fluid" alt="Image">#}
+{#                                                        <div class="mask-icon">#}
+{#                                                            <ul>#}
+{#                                                                <li><a href="{% url 'farm' farm.id %}" data-toggle="tooltip"#}
+{#                                                                       data-placement="right"#}
+{#                                                                       title="View"><i class="fas fa-eye"></i></a></li>#}
+{#                                                                <li><a href="{% url 'update-farm' farm.id %}"#}
+{#                                                                       data-toggle="tooltip" data-placement="right"#}
+{#                                                                       title="Update farm"><i#}
+{#                                                                        class="fas fa-sync-alt"></i></a>#}
+{#                                                                </li>#}
+{#                                                                <li><a href="{% url 'delete-farm' farm.id %}"#}
+{#                                                                       data-toggle="tooltip" data-placement="right"#}
+{#                                                                       title="Delete Farm"><i class="far fa-heart"></i></a>#}
+{#                                                                </li>#}
+{#                                                            </ul>#}
+{#                                                            <a class="cart"#}
+{#                                                               href="{% url 'farm' farm.id %}">{{ farm.name }}</a>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                    <div class="why-text">#}
+{#                                                        <h4>{{ farm.description }}</h4>#}
+{#                                                        <h5> {{ farm.size }}</h5>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        {% endfor %}#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div role="tabpanel" class="tab-pane fade" id="list-view">#}
+{#                                    <div class="list-view-box">#}
+{#                                        <div class="row">#}
+{#                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">#}
+{#                                                <div class="products-single fix">#}
+{#                                                    <div class="box-img-hover">#}
+{#                                                        <div class="type-lb">#}
+{#                                                            <p class="new">New</p>#}
+{#                                                        </div>#}
+{#                                                        <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">#}
+{#                                                        <div class="mask-icon">#}
+{#                                                            <ul>#}
+{#                                                                <li><a href="#" data-toggle="tooltip"#}
+{#                                                                       data-placement="right" title="View"><i#}
+{#                                                                        class="fas fa-eye"></i></a></li>#}
+{#                                                                <li><a href="#" data-toggle="tooltip"#}
+{#                                                                       data-placement="right" title="Compare"><i#}
+{#                                                                        class="fas fa-sync-alt"></i></a></li>#}
+{#                                                                <li><a href="#" data-toggle="tooltip"#}
+{#                                                                       data-placement="right" title="Add to Wishlist"><i#}
+{#                                                                        class="far fa-heart"></i></a></li>#}
+{#                                                            </ul>#}
+{##}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">#}
+{#                                                <div class="why-text full-width">#}
+{#                                                    <h4>Lorem ipsum dolor sit amet</h4>#}
+{#                                                    <h5>#}
+{#                                                        <del>$ 60.00</del>#}
+{#                                                        $40.79#}
+{#                                                    </h5>#}
+{#                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien,#}
+{#                                                        imperdiet quis magna nec, iaculis ultrices ante. Integer vitae#}
+{#                                                        suscipit nisi. Morbi dignissim risus sit amet orci porta, eget#}
+{#                                                        aliquam purus#}
+{#                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in#}
+{#                                                        blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus,#}
+{#                                                        quis euismod ex volutpat in. Vestibulum eleifend eros ac#}
+{#                                                        lobortis aliquet.#}
+{#                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin#}
+{#                                                        quam. Praesent vulputate semper libero pulvinar consequat. Etiam#}
+{#                                                        ut placerat lectus.</p>#}
+{#                                                    <a class="btn hvr-hover" href="#">Add to Cart</a>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="list-view-box">#}
+{#                                        <div class="row">#}
+{#                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">#}
+{#                                                <div class="products-single fix">#}
+{#                                                    <div class="box-img-hover">#}
+{#                                                        <div class="type-lb">#}
+{#                                                            <p class="sale">Sale</p>#}
+{#                                                        </div>#}
+{#                                                        <img src="images/img-pro-02.jpg" class="img-fluid" alt="Image">#}
+{#                                                        <div class="mask-icon">#}
+{#                                                            <ul>#}
+{#                                                                <li><a href="#" data-toggle="tooltip"#}
+{#                                                                       data-placement="right" title="View"><i#}
+{#                                                                        class="fas fa-eye"></i></a></li>#}
+{#                                                                <li><a href="#" data-toggle="tooltip"#}
+{#                                                                       data-placement="right" title="Compare"><i#}
+{#                                                                        class="fas fa-sync-alt"></i></a></li>#}
+{#                                                                <li><a href="#" data-toggle="tooltip"#}
+{#                                                                       data-placement="right" title="Add to Wishlist"><i#}
+{#                                                                        class="far fa-heart"></i></a></li>#}
+{#                                                            </ul>#}
+{##}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">#}
+{#                                                <div class="why-text full-width">#}
+{#                                                    <h4>Lorem ipsum dolor sit amet</h4>#}
+{#                                                    <h5>#}
+{#                                                        <del>$ 60.00</del>#}
+{#                                                        $40.79#}
+{#                                                    </h5>#}
+{#                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien,#}
+{#                                                        imperdiet quis magna nec, iaculis ultrices ante. Integer vitae#}
+{#                                                        suscipit nisi. Morbi dignissim risus sit amet orci porta, eget#}
+{#                                                        aliquam purus#}
+{#                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in#}
+{#                                                        blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus,#}
+{#                                                        quis euismod ex volutpat in. Vestibulum eleifend eros ac#}
+{#                                                        lobortis aliquet.#}
+{#                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin#}
+{#                                                        quam. Praesent vulputate semper libero pulvinar consequat. Etiam#}
+{#                                                        ut placerat lectus.</p>#}
+{#                                                    <a class="btn hvr-hover" href="#">Add to Cart</a>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="list-view-box">#}
+{#                                        <div class="row">#}
+{#                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">#}
+{#                                                <div class="products-single fix">#}
+{#                                                    <div class="box-img-hover">#}
+{#                                                        <div class="type-lb">#}
+{#                                                            <p class="sale">Sale</p>#}
+{#                                                        </div>#}
+{#                                                        <img src="images/img-pro-03.jpg" class="img-fluid" alt="Image">#}
+{#                                                        <div class="mask-icon">#}
+{#                                                            <ul>#}
+{#                                                                <li><a href="#" data-toggle="tooltip"#}
+{#                                                                       data-placement="right" title="View"><i#}
+{#                                                                        class="fas fa-eye"></i></a></li>#}
+{#                                                                <li><a href="#" data-toggle="tooltip"#}
+{#                                                                       data-placement="right" title="Compare"><i#}
+{#                                                                        class="fas fa-sync-alt"></i></a></li>#}
+{#                                                                <li><a href="#" data-toggle="tooltip"#}
+{#                                                                       data-placement="right" title="Add to Wishlist"><i#}
+{#                                                                        class="far fa-heart"></i></a></li>#}
+{#                                                            </ul>#}
+{##}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">#}
+{#                                                <div class="why-text full-width">#}
+{#                                                    <h4>Lorem ipsum dolor sit amet</h4>#}
+{#                                                    <h5>#}
+{#                                                        <del>$ 60.00</del>#}
+{#                                                        $40.79#}
+{#                                                    </h5>#}
+{#                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien,#}
+{#                                                        imperdiet quis magna nec, iaculis ultrices ante. Integer vitae#}
+{#                                                        suscipit nisi. Morbi dignissim risus sit amet orci porta, eget#}
+{#                                                        aliquam purus#}
+{#                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in#}
+{#                                                        blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus,#}
+{#                                                        quis euismod ex volutpat in. Vestibulum eleifend eros ac#}
+{#                                                        lobortis aliquet.#}
+{#                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin#}
+{#                                                        quam. Praesent vulputate semper libero pulvinar consequat. Etiam#}
+{#                                                        ut placerat lectus.</p>#}
+{#                                                    <a class="btn hvr-hover" href="#">Add to Cart</a>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">#}
+{#                    <div class="product-categori">#}
+{#                        <div class="search-product">#}
+{#                            <form action="#">#}
+{#                                <input class="form-control" placeholder="Search here..." type="text">#}
+{#                                <button type="submit"><i class="fa fa-search"></i></button>#}
+{#                            </form>#}
+{#                        </div>#}
+{#                        <div class="filter-sidebar-left">#}
+{#                            <div class="title-left">#}
+{#                                <h3>Categories</h3>#}
+{#                            </div>#}
+{#                            <div class="list-group list-group-collapse list-group-sm list-group-tree"#}
+{#                                 id="list-group-men" data-children=".sub-men">#}
+{#                                <div class="list-group-collapse sub-men">#}
+{#                                    <div class="collapse show" id="sub-men1" data-parent="#list-group-men">#}
+{#                                        <div class="list-group">#}
+{#                                            <a href="{% url 'home' %}"#}
+{#                                               class="list-group-item list-group-item-action active">All</a>#}
+{#                                            {% for category in categories %}#}
+{#                                                <a href="{% url 'home' %}?q={{ category.name }}"#}
+{#                                                   class="list-group-item list-group-item-action">{{ category.name }}</a>#}
+{#                                            {% endfor %}#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="filter-sidebar-left">#}
+{#                            <div class="title-left">#}
+{#                                <h3>Registered farms</h3>#}
+{#                            </div>#}
+{#                            <div class="list-group list-group-collapse list-group-sm list-group-tree"#}
+{#                                 id="list-group-men" data-children=".sub-men">#}
+{#                                <div class="list-group-collapse sub-men">#}
+{#                                    <div class="collapse show" id="sub-men1" data-parent="#list-group-men">#}
+{#                                        <div class="list-group">#}
+{#                                            {% for registered_farm in registered_farms %}#}
+{#                                                <a href="{% url 'home' %}?q={{ registered_farm.quantity }}"#}
+{#                                                   class="list-group-item list-group-item-action">{{ registered_farm.quantity }}</a>#}
+{#                                            {% endfor %}#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
 {#                </div>#}
 {#            </div>#}
-{#        </div>#}
-{#        <div>#}
-{#            <h3>Registered farms</h3>#}
-{#            <hr>#}
-{#            {% for registered_farm in registered_farms %}#}
-{#                <div>#}
-{#                    <a href="{% url 'home' %}?q={{ registered_farm.quantity }}">{{ registered_farm.quantity }}</a>#}
-{#                    <!-- q represents queries -->#}
-{#                </div>#}
-{#            {% endfor %}#}
 {#        </div>#}
 {#    </div>#}
+{#    <!-- End Shop Page -->#}
+{##}
+{#    <!-- ALL JS FILES -->#}
+{#    <script src="js/jquery-3.2.1.min.js"></script>#}
+{#    <script src="js/popper.min.js"></script>#}
+{#    <script src="js/bootstrap.min.js"></script>#}
+{#    <!-- ALL PLUGINS -->#}
+{#    <script src="js/jquery.superslides.min.js"></script>#}
+{#    <script src="js/bootstrap-select.js"></script>#}
+{#    <script src="js/inewsticker.js"></script>#}
+{#    <script src="js/bootsnav.js."></script>#}
+{#    <script src="js/images-loded.min.js"></script>#}
+{#    <script src="js/isotope.min.js"></script>#}
+{#    <script src="js/owl.carousel.min.js"></script>#}
+{#    <script src="js/baguetteBox.min.js"></script>#}
+{#    <script src="js/jquery-ui.js"></script>#}
+{#    <script src="js/jquery.nicescroll.min.js"></script>#}
+{#    <script src="js/form-validator.min.js"></script>#}
+{#    <script src="js/contact-form-script.js"></script>#}
+{#    <script src="js/custom.js"></script>#}
+{#    <!-- Back to Top -->#}
+{#    <a href="#" class="btn btn-secondary py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>#}
+{##}
+{##}
+{#    <!-- JavaScript Libraries -->#}
+{#    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>#}
+{#    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>#}
+{#    <script src="lib/easing/easing.min.js"></script>#}
+{#    <script src="lib/waypoints/waypoints.min.js"></script>#}
+{#    <script src="lib/counterup/counterup.min.js"></script>#}
+{#    <script src="lib/owlcarousel/owl.carousel.min.js"></script>#}
 
-    <hr><br>
-    <!-- Start Shop Page  -->
-    <div class="shop-box-inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
-                    <div class="right-product-box">
-                        <div class="product-item-filter row">
-                            <div class="col-12 col-sm-8 text-center text-sm-left">
-                                <div class="toolbar-sorter-right">
-                                    <span>Sort by </span>
-                                    <select id="basic" class="selectpicker show-tick form-control"
-                                            data-placeholder="$ USD">
-                                        <option data-display="Select">Nothing</option>
-                                        <option value="1">Popularity</option>
-                                        <option value="2">High Price → High Price</option>
-                                        <option value="3">Low Price → High Price</option>
-                                        <option value="4">Best Selling</option>
-                                    </select>
-                                </div>
-                                <p>Showing all 4 results</p>
-                            </div>
-                            <div class="col-12 col-sm-4 text-center text-sm-right">
-                                <ul class="nav nav-tabs ml-auto">
-                                    <li>
-                                        <a class="nav-link active" href="#grid-view" data-toggle="tab"> <i
-                                                class="fa fa-th"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="#list-view" data-toggle="tab"> <i
-                                                class="fa fa-list-ul"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
 
-                        <div class="product-categorie-box">
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
-                                    <div class="row">
-                                        {% for farm in farms %}
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                                <div class="products-single fix">
-                                                    <div class="box-img-hover">
-                                                        <div class="type-lb">
-                                                            <p class="sale">Sale</p>
-                                                        </div>
-                                                        <img src="{% static 'images2/img-pro-01.jpg' %}"
-                                                             class="img-fluid" alt="Image">
-                                                        <div class="mask-icon">
-                                                            <ul>
-                                                                <li><a href="{% url 'farm' farm.id %}" data-toggle="tooltip"
-                                                                       data-placement="right"
-                                                                       title="View"><i class="fas fa-eye"></i></a></li>
-                                                                <li><a href="{% url 'update-farm' farm.id %}"
-                                                                       data-toggle="tooltip" data-placement="right"
-                                                                       title="Update farm"><i
-                                                                        class="fas fa-sync-alt"></i></a>
-                                                                </li>
-                                                                <li><a href="{% url 'delete-farm' farm.id %}"
-                                                                       data-toggle="tooltip" data-placement="right"
-                                                                       title="Delete Farm"><i class="far fa-heart"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                            <a class="cart"
-                                                               href="{% url 'farm' farm.id %}">{{ farm.name }}</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="why-text">
-                                                        <h4>{{ farm.description }}</h4>
-                                                        <h5> {{ farm.size }}</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                <div role="tabpanel" class="tab-pane fade" id="list-view">
-                                    <div class="list-view-box">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                                <div class="products-single fix">
-                                                    <div class="box-img-hover">
-                                                        <div class="type-lb">
-                                                            <p class="new">New</p>
-                                                        </div>
-                                                        <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
-                                                        <div class="mask-icon">
-                                                            <ul>
-                                                                <li><a href="#" data-toggle="tooltip"
-                                                                       data-placement="right" title="View"><i
-                                                                        class="fas fa-eye"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip"
-                                                                       data-placement="right" title="Compare"><i
-                                                                        class="fas fa-sync-alt"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip"
-                                                                       data-placement="right" title="Add to Wishlist"><i
-                                                                        class="far fa-heart"></i></a></li>
-                                                            </ul>
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
-                                                <div class="why-text full-width">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5>
-                                                        <del>$ 60.00</del>
-                                                        $40.79
-                                                    </h5>
-                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien,
-                                                        imperdiet quis magna nec, iaculis ultrices ante. Integer vitae
-                                                        suscipit nisi. Morbi dignissim risus sit amet orci porta, eget
-                                                        aliquam purus
-                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in
-                                                        blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus,
-                                                        quis euismod ex volutpat in. Vestibulum eleifend eros ac
-                                                        lobortis aliquet.
-                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin
-                                                        quam. Praesent vulputate semper libero pulvinar consequat. Etiam
-                                                        ut placerat lectus.</p>
-                                                    <a class="btn hvr-hover" href="#">Add to Cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-view-box">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                                <div class="products-single fix">
-                                                    <div class="box-img-hover">
-                                                        <div class="type-lb">
-                                                            <p class="sale">Sale</p>
-                                                        </div>
-                                                        <img src="images/img-pro-02.jpg" class="img-fluid" alt="Image">
-                                                        <div class="mask-icon">
-                                                            <ul>
-                                                                <li><a href="#" data-toggle="tooltip"
-                                                                       data-placement="right" title="View"><i
-                                                                        class="fas fa-eye"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip"
-                                                                       data-placement="right" title="Compare"><i
-                                                                        class="fas fa-sync-alt"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip"
-                                                                       data-placement="right" title="Add to Wishlist"><i
-                                                                        class="far fa-heart"></i></a></li>
-                                                            </ul>
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
-                                                <div class="why-text full-width">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5>
-                                                        <del>$ 60.00</del>
-                                                        $40.79
-                                                    </h5>
-                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien,
-                                                        imperdiet quis magna nec, iaculis ultrices ante. Integer vitae
-                                                        suscipit nisi. Morbi dignissim risus sit amet orci porta, eget
-                                                        aliquam purus
-                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in
-                                                        blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus,
-                                                        quis euismod ex volutpat in. Vestibulum eleifend eros ac
-                                                        lobortis aliquet.
-                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin
-                                                        quam. Praesent vulputate semper libero pulvinar consequat. Etiam
-                                                        ut placerat lectus.</p>
-                                                    <a class="btn hvr-hover" href="#">Add to Cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-view-box">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                                <div class="products-single fix">
-                                                    <div class="box-img-hover">
-                                                        <div class="type-lb">
-                                                            <p class="sale">Sale</p>
-                                                        </div>
-                                                        <img src="images/img-pro-03.jpg" class="img-fluid" alt="Image">
-                                                        <div class="mask-icon">
-                                                            <ul>
-                                                                <li><a href="#" data-toggle="tooltip"
-                                                                       data-placement="right" title="View"><i
-                                                                        class="fas fa-eye"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip"
-                                                                       data-placement="right" title="Compare"><i
-                                                                        class="fas fa-sync-alt"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip"
-                                                                       data-placement="right" title="Add to Wishlist"><i
-                                                                        class="far fa-heart"></i></a></li>
-                                                            </ul>
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
-                                                <div class="why-text full-width">
-                                                    <h4>Lorem ipsum dolor sit amet</h4>
-                                                    <h5>
-                                                        <del>$ 60.00</del>
-                                                        $40.79
-                                                    </h5>
-                                                    <p>Integer tincidunt aliquet nibh vitae dictum. In turpis sapien,
-                                                        imperdiet quis magna nec, iaculis ultrices ante. Integer vitae
-                                                        suscipit nisi. Morbi dignissim risus sit amet orci porta, eget
-                                                        aliquam purus
-                                                        sollicitudin. Cras eu metus felis. Sed arcu arcu, sagittis in
-                                                        blandit eu, imperdiet sit amet eros. Donec accumsan nisi purus,
-                                                        quis euismod ex volutpat in. Vestibulum eleifend eros ac
-                                                        lobortis aliquet.
-                                                        Suspendisse at ipsum vel lacus vehicula blandit et sollicitudin
-                                                        quam. Praesent vulputate semper libero pulvinar consequat. Etiam
-                                                        ut placerat lectus.</p>
-                                                    <a class="btn hvr-hover" href="#">Add to Cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+
+    <!DOCTYPE html>
+<html lang="en">
+
+    <body id="page-top">
+
+        <!-- About-->
+        <section class="page-section bg-primary" id="about">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="text-white mt-0">We've got what you need!</h2>
+                        <hr class="divider divider-light" />
+                        <p class="text-white-75 mb-4">Farm tech offers what farmers want</p>
+                        <a class="btn btn-light btn-xl" href="#services">Get Started!</a>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
-                    <div class="product-categori">
-                        <div class="search-product">
-                            <form action="#">
-                                <input class="form-control" placeholder="Search here..." type="text">
-                                <button type="submit"><i class="fa fa-search"></i></button>
-                            </form>
+            </div>
+        </section>
+        <!-- Services-->
+        <section class="page-section" id="services">
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mt-0">At Your Service</h2>
+                <hr class="divider" />
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2">Record daily reports</h3>
+                            <p class="text-muted mb-0">You are able to key in every activity you do or engage in the farm </p>
                         </div>
-                        <div class="filter-sidebar-left">
-                            <div class="title-left">
-                                <h3>Categories</h3>
-                            </div>
-                            <div class="list-group list-group-collapse list-group-sm list-group-tree"
-                                 id="list-group-men" data-children=".sub-men">
-                                <div class="list-group-collapse sub-men">
-                                    <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
-                                        <div class="list-group">
-                                            <a href="{% url 'home' %}"
-                                               class="list-group-item list-group-item-action active">All</a>
-                                            {% for category in categories %}
-                                                <a href="{% url 'home' %}?q={{ category.name }}"
-                                                   class="list-group-item list-group-item-action">{{ category.name }}</a>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2">Up to Date Expenses</h3>
+                            <p class="text-muted mb-0">All dependencies are kept current to keep things fresh and for the farmer to know his use.</p>
                         </div>
-                        <div class="filter-sidebar-left">
-                            <div class="title-left">
-                                <h3>Registered farms</h3>
-                            </div>
-                            <div class="list-group list-group-collapse list-group-sm list-group-tree"
-                                 id="list-group-men" data-children=".sub-men">
-                                <div class="list-group-collapse sub-men">
-                                    <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
-                                        <div class="list-group">
-                                            {% for registered_farm in registered_farms %}
-                                                <a href="{% url 'home' %}?q={{ registered_farm.quantity }}"
-                                                   class="list-group-item list-group-item-action">{{ registered_farm.quantity }}</a>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2">Ready to Publish</h3>
+                            <p class="text-muted mb-0">You can use this design as is, or you can make changes!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2">Made with Love</h3>
+                            <p class="text-muted mb-0">Is it really open source if it's not made with love?</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
+        <!-- Portfolio-->
+        <div id="portfolio">
+            <div class="container-fluid p-0">
+                <div class="row g-0">
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="{% static 'assets/img/portfolio/fullsize/6.jpg' %}" title="Project Name">
+                            <img class="img-fluid" src="{% static 'assets/img/portfolio/thumbnails/1.jpg' %}" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">image iko wapi</div>
+                                <div class="project-name">Project Name</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="{% static 'assets/img/portfolio/fullsize/2.jpg' %}" title="Project Name">
+                            <img class="img-fluid" src="{% static 'assets/img/portfolio/thumbnails/2.jpg' %}" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="{% static 'assets/img/portfolio/fullsize/3.jpg' %}" title="Project Name">
+                            <img class="img-fluid" src="{% static 'assets/img/portfolio/thumbnails/3.jpg' %}" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="{% static 'assets/img/portfolio/fullsize/4.jpg' %}" title="Project Name">
+                            <img class="img-fluid" src="{% static 'assets/img/portfolio/thumbnails/3.jpg' %}" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="{% static 'assets/img/portfolio/fullsize/images (5).jpeg' %}" title="Project Name">
+                            <img class="img-fluid" src="{% static 'assets/img/portfolio/thumbnails/images (5).jpeg' %}" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="{% static 'assets/img/portfolio/fullsize/6.jpg' %}" title="Project Name">
+                            <img class="img-fluid" src="{% static 'assets/img/portfolio/thumbnails/6.jpg' %}" alt="..." />
+                            <div class="portfolio-box-caption p-3">
+                                <div class="project-category text-white-50">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- End Shop Page -->
+        <!-- Call to action-->
+        <section class="page-section bg-dark text-white">
+            <div class="container px-4 px-lg-5 text-center">
+                <h2 class="mb-4">Free Download at Start Bootstrap!</h2>
+                <a class="btn btn-light btn-xl" href="https://startbootstrap.com/theme/creative/">Download Now!</a>
+            </div>
+        </section>
+        <!-- Contact-->
+        <section class="page-section" id="contact">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6 text-center">
+                        <h2 class="mt-0">Let's Get In Touch!</h2>
+                        <hr class="divider" />
+                        <p class="text-muted mb-5">Ready to start your next project with us? Send us a messages and we will get back to you as soon as possible!</p>
+                    </div>
+                </div>
+                <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+                    <div class="col-lg-6">
+                        <!-- * * * * * * * * * * * * * * *-->
+                        <!-- * * SB Forms Contact Form * *-->
+                        <!-- * * * * * * * * * * * * * * *-->
+                        <!-- This form is pre-integrated with SB Forms.-->
+                        <!-- To make this form functional, sign up at-->
+                        <!-- https://startbootstrap.com/solution/contact-forms-->
+                        <!-- to get an API token!-->
+                        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                            <!-- Name input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                <label for="name">Full name</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                            </div>
+                            <!-- Email address input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                <label for="email">Email address</label>
+                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                            </div>
+                            <!-- Phone number input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
+                                <label for="phone">Phone number</label>
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                            </div>
+                            <!-- Message input-->
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="message" type="text" placeholder="Enter your message here..." style="height: 10rem" data-sb-validations="required"></textarea>
+                                <label for="message">Message</label>
+                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                            </div>
+                            <!-- Submit success message-->
+                            <!---->
+                            <!-- This is what your users will see when the form-->
+                            <!-- has successfully submitted-->
+                            <div class="d-none" id="submitSuccessMessage">
+                                <div class="text-center mb-3">
+                                    <div class="fw-bolder">Form submission successful!</div>
+                                    To activate this form, sign up at
+                                    <br />
+                                    <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                                </div>
+                            </div>
+                            <!-- Submit error message-->
+                            <!---->
+                            <!-- This is what your users will see when there is-->
+                            <!-- an error submitting the form-->
+                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                            <!-- Submit Button-->
+                            <div class="d-grid"><button class="btn btn-primary btn-xl disabled" id="submitButton" type="submit">Submit</button></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                        <i class="bi-phone fs-2 mb-3 text-muted"></i>
+                        <div>+254 759 669 534</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- ALL JS FILES -->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- ALL PLUGINS -->
-    <script src="js/jquery.superslides.min.js"></script>
-    <script src="js/bootstrap-select.js"></script>
-    <script src="js/inewsticker.js"></script>
-    <script src="js/bootsnav.js."></script>
-    <script src="js/images-loded.min.js"></script>
-    <script src="js/isotope.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/baguetteBox.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/jquery.nicescroll.min.js"></script>
-    <script src="js/form-validator.min.js"></script>
-    <script src="js/contact-form-script.js"></script>
-    <script src="js/custom.js"></script>
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-secondary py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
 {% endblock %}

@@ -19,7 +19,7 @@ def admin_login(request):
     # return render(request, 'lologingin.html')
     try:
         if request.user.is_authenticated:
-            return redirect('back-home')
+            return redirect('backend-home')
         if request.method == 'POST':
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -32,7 +32,7 @@ def admin_login(request):
 
             if user_obj and user_obj.is_superuser:
                 login(request, user_obj)
-                return redirect('back-home')
+                return redirect('backend-home')
 
             messages.info(request, 'Invalid password')
             return redirect('/')
@@ -222,6 +222,24 @@ def delete(request, pk):
         farm.delete()
         return redirect('farm')
     return render(request, 'delete.html', {'obj': farm})
+
+
+def pie_chart(request):
+    labels = []
+    data = []
+
+    queryset = FarmLease.objects.order_by('-farm_id')[:4]
+    for farmlease in queryset:
+        labels.append(farmlease.farmer_name)
+        data.append(farmlease.price)
+
+    return render(request, 'pie_chart.html', {
+        'labels': labels,
+        'data': data,
+    })
+
+
+
 
 # @login_required(login_url='custom-login')
 # def generateReport(request):
