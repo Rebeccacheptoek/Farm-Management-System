@@ -1,6 +1,56 @@
 {% extends 'admin/base.html' %}
 
-
 {% block content %}
-    <h1>Farm crop</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+        <div>
+{#            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>#}
+            </div>
+            <div>
+
+                  <a href="{% url 'add-farm-crop' %}"
+                       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                      <i class="fa-solid fa-plus"></i>Add Farm Crop</a>
+
+        </div>
+          </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>S No.</th>
+                        <th>Farm name</th>
+                        <th>Crop</th>
+                        <th>Planted On</th>
+                        <th>Harvested By</th>
+                        <th>Year</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for farmcrop in farm_crops %}
+                    <tr>
+                        <td>{{ farmcrop.id }}</td>
+                        <td>{{ farmcrop.farm_id }}</td>
+                        <td>{{ farmcrop.crop_id }}</td>
+                        <td>{{ farmcrop.planted_on }}</td>
+                        <td>{{ farmcrop.harvested_by }}</td>
+                        <td>{{ farmcrop.year_planted }}</td>
+                        <td>{{ farmcrop.status }}</td>
+                        <td><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fa-sharp fa-solid fa-file-pen"></i>Edit</a>
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm">
+                            <i class="fa-solid fa-trash"></i>Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

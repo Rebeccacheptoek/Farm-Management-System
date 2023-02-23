@@ -4,7 +4,7 @@
 {% block content %}
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Create Farm
+        Add Farm Crop
     </button>
 
     <!-- Modal -->
@@ -20,33 +20,39 @@
                         {% csrf_token %}
                         {{ crispy }}
                         <div class="form-group">
-                            <label for="name">Farm Name:</label>
+                            <label for="name">Farm Crop:</label>
 {#                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name...">#}
-                            {{ form.name }}
+                            {{ form.farm_id }}
                         </div>
                         <div class="form-group">
-                            <label for="description">Description:</label>
+                            <label for="description">Crop id:</label>
 {#                            <textarea class="form-control" id="description" name="description"#}
 {#                                      placeholder="Crop description.."></textarea>#}
-                            {{ form.description }}
+                            {{ form.crop_id }}
                         </div>
                         <div class="form-group">
-                            <label for="duration">Size:</label>
+                            <label for="duration">Planted on:</label>
 {#                            <input type="text" class="form-control" id="duration" name="duration"#}
 {#                                   placeholder="Duration in months..">#}
-                            {{ form.size }}
+                            {{ form.planted_on }}
                         </div>
                         <div class="form-group">
-                            <label for="duration">Location:</label>
+                            <label for="duration">Harvested By:</label>
 {#                            <input type="text" class="form-control" id="duration" name="duration"#}
 {#                                   placeholder="Duration in months..">#}
-                            {{ form.location }}
+                            {{ form.harvested_by }}
                         </div>
                         <div class="form-group">
-                            <label for="duration">Ownership:</label>
+                            <label for="duration">Year:</label>
 {#                            <input type="text" class="form-control" id="duration" name="duration"#}
 {#                                   placeholder="Duration in months..">#}
-                            {{ form.is_mine }}
+                            {{ form.year_planted }}
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Status:</label>
+{#                            <input type="text" class="form-control" id="duration" name="duration"#}
+{#                                   placeholder="Duration in months..">#}
+                            {{ form.status }}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
