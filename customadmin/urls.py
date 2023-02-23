@@ -12,6 +12,7 @@ urlpatterns = [
     path('backend-home/', views.index, name='backend-home'),
 
     path('b-crop/', views.crop, name='b-crop'),
+    path('view-crop/<str:pk>', views.viewCrop, name='view-crop'),
     path('add-crop/', views.addCrop, name='add-crop'),
     path('edit-crop/<str:pk>', views.updateCrop, name='edit-crop'),
 

@@ -96,6 +96,13 @@ def crop(request):
     return render(request, 'crop.html', context)
 
 
+def viewCrop(request, pk):
+    crops = Crop.objects.get(id=pk)
+    farm_crop = FarmCrop.objects.all()
+    context = {'crops': crops, 'farm_crop': farm_crop}
+    return render(request, 'view-crop.html', context)
+
+
 @login_required(login_url='custom-login')
 def addCrop(request):
     form = CropForm()
@@ -116,7 +123,7 @@ def updateCrop(request, pk):
         form = CropForm(request.POST, instance=crop)
         if form.is_valid():
             form.save()
-            return redirect('crop')
+            return redirect('b-crop')
 
     context = {'form': form}
     return render(request, 'add_crop.html', context)

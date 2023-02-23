@@ -1,0 +1,11 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+    <h1>View crop</h1>
+        {% for farmcrop in farm_crop %}
+            <div class="row">
+            <p>{{ farmcrop.planted_on }}</p>
+            <p>{{ farmcrop.harvested_by }}</p>
+            </div>
+    {% endfor %}
+{% endblock content %}
