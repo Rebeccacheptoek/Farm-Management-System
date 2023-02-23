@@ -20,7 +20,7 @@
                         {% csrf_token %}
                         {{ crispy }}
                         <div class="form-group">
-                            <label for="name">Farm Register Name:</label>
+                            <label for="name">Farm Name:</label>
 {#                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name...">#}
                             {{ form.name }}
                         </div>
@@ -71,7 +71,7 @@
                     data: $(this).serialize(),
                     success: function (response) {
                         // handle successful form submission
-               }}         $('#myModal .modal-body').html(response);
+                        $('#myModal .modal-body').html(response);
                     },
                     error: function (response) {
                         // handle form submission errors

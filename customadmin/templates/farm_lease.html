@@ -1,6 +1,54 @@
 {% extends 'admin/base.html' %}
 
-
 {% block content %}
-    <h1>Farm lease</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+        <div>
+{#            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>#}
+            </div>
+            <div>
+
+                  <a href="{% url 'add-farm-lease' %}"
+                       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                      <i class="fa-solid fa-plus"></i>Add Farm Lease</a>
+
+        </div>
+          </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>S No.</th>
+                        <th>Farmer Name</th>
+                        <th>Phone Number</th>
+                        <th>Farm Price</th>
+                        <th>Date from</th>
+                        <th>Date to</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for farm_lease in farm_leases %}
+                    <tr>
+                        <td>{{ farm_lease.id }}</td>
+                        <td>{{ farm_lease.farmer_name }}</td>
+                        <td>{{ farm_lease.farmer_phone }}</td>
+                        <td>{{ farm_lease.price }}</td>
+                        <td>{{ farm_lease.date_from }}</td>
+                        <td>{{ farm_lease.date_to }}</td>
+                        <td><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fa-sharp fa-solid fa-file-pen"></i>Edit</a>
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm">
+                            <i class="fa-solid fa-trash"></i>Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
