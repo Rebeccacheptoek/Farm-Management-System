@@ -20,8 +20,14 @@ urlpatterns = [
     path('add-farm/', views.createFarm, name='add-farm'),
     path('edit-farm/<str:pk>', views.updateFarm, name='edit-farm'),
 
+    path('category', views.category, name='category'),
+
+    path('farm-notes', views.farmNote, name='farm-note'),
+    path('farm-lease', views.farmLease, name='farm-lease'),
+    path('farm-crop', views.farmCrop, name='farm-crop'),
+
     # path('generate-report/', views.generateReport, name='generate-report'),
-    path('report/', views.TotalFarmExpenses, name='report'),
+    # path('report/', views.TotalFarmExpenses, name='report'),
 
     path('delete/<str:pk>', views.delete, name='delete'),
 

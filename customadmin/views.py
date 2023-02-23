@@ -129,6 +129,29 @@ def updateCrop(request, pk):
     return render(request, 'add_crop.html', context)
 
 
+def category(request):
+    category = Category.objects.all()
+    context = {'category': category}
+    return render(request, 'category.html', context)
+
+
+def farmLease(request):
+    farm_leases = FarmLease.objects.all()
+    context = {'farm_leases': farm_leases}
+    return render(request, 'farm_lease.html', context)
+
+
+def farmCrop(request):
+    farm_crops = FarmCrop.objects.all()
+    context = {'farm_crops': farm_crops}
+    return render(request, 'farm_crop.html', context)
+
+
+def farmNote(request):
+    farm_notes = FarmNotes.objects.all()
+    context = {'farm_notes': farm_notes}
+    return render(request, 'farm_notes.html', context)
+
 @login_required(login_url='custom-login')
 def delete(request, pk):
     farm = Farm.objects.get(id=pk)
@@ -143,20 +166,20 @@ def delete(request, pk):
 #     return render(request, 'generate_report.html')
 
 
-def TotalFarmExpenses(SlickReportView):
-    report_model = FarmRegister
-    date_field = 'date_created'
-    group_by = 'farm_crop_id'
-    columns = ['title',
-               SlickReportField.create(method=Sum, field='total_cost', name='total__cost', verbose_name='Total spent $')
-               ]
-
-    # Charts
-    charts_settings = [
-        {
-            'type': 'bar',
-            'data_source': 'total__cost',
-            'title_source': 'title',
-        },
-    ]
-    return render(SlickReportView, 'generate_report.html')
+# def TotalFarmExpenses(SlickReportView):
+#     report_model = FarmRegister
+#     date_field = 'date_created'
+#     group_by = 'farm_crop_id'
+#     columns = ['title',
+#                SlickReportField.create(method=Sum, field='total_cost', name='total__cost', verbose_name='Total spent $')
+#                ]
+#
+#     # Charts
+#     charts_settings = [
+#         {
+#             'type': 'bar',
+#             'data_source': 'total__cost',
+#             'title_source': 'title',
+#         },
+#     ]
+#     return render(SlickReportView, 'generate_report.html')
