@@ -20,33 +20,39 @@
                         {% csrf_token %}
                         {{ crispy }}
                         <div class="form-group">
-                            <label for="name">Farm Name:</label>
+                            <label for="name">Farm Crop Name:</label>
 {#                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name...">#}
-                            {{ form.name }}
+                            {{ form.farm_crop_id }}
                         </div>
                         <div class="form-group">
-                            <label for="description">Description:</label>
+                            <label for="description">Category:</label>
 {#                            <textarea class="form-control" id="description" name="description"#}
 {#                                      placeholder="Crop description.."></textarea>#}
+                            {{ form.category_id }}
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Total cost:</label>
+{#                            <input type="text" class="form-control" id="duration" name="duration"#}
+{#                                   placeholder="Duration in months..">#}
+                            {{ form.total_cost }}
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Quantity:</label>
+{#                            <input type="text" class="form-control" id="duration" name="duration"#}
+{#                                   placeholder="Duration in months..">#}
+                            {{ form.quantity }}
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Description:</label>
+{#                            <input type="text" class="form-control" id="duration" name="duration"#}
+{#                                   placeholder="Duration in months..">#}
                             {{ form.description }}
                         </div>
                         <div class="form-group">
-                            <label for="duration">Size:</label>
+                            <label for="duration">Date created:</label>
 {#                            <input type="text" class="form-control" id="duration" name="duration"#}
 {#                                   placeholder="Duration in months..">#}
-                            {{ form.size }}
-                        </div>
-                        <div class="form-group">
-                            <label for="duration">Location:</label>
-{#                            <input type="text" class="form-control" id="duration" name="duration"#}
-{#                                   placeholder="Duration in months..">#}
-                            {{ form.location }}
-                        </div>
-                        <div class="form-group">
-                            <label for="duration">Ownership:</label>
-{#                            <input type="text" class="form-control" id="duration" name="duration"#}
-{#                                   placeholder="Duration in months..">#}
-                            {{ form.is_mine }}
+                            {{ form.date_created }}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

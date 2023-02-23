@@ -1,5 +1,54 @@
 {% extends 'admin/base.html' %}
 
 {% block content %}
-    <h1>Farm register</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+        <div>
+{#            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>#}
+            </div>
+            <div>
+
+                  <a href="{% url 'add-farm-register' %}"
+                       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                      <i class="fa-solid fa-plus"></i>Create Farm</a>
+
+        </div>
+          </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>S No.</th>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Location</th>
+                        <th>Ownership</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for farmregister in farm_registers %}
+                    <tr>
+                        <td>{{ farmregister.id }}</td>
+                        <td>{{ farmregister.farm_crop_id }}</td>
+                        <td>{{ farmregister.category_id }}</td>
+                        <td>{{ farmregister.total_cost }}</td>
+                        <td>{{ farmregister.quantity }}</td>
+                        <td>{{ farmregister.description }}</td>
+                        <td>{{ farmregister.date_created }}</td>
+                        <td><a href="{% url 'edit-farm' farm.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fa-sharp fa-solid fa-file-pen"></i>Edit</a>
+                            <a href="{% url 'delete' farm.id %}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm">
+                            <i class="fa-solid fa-trash"></i>Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
