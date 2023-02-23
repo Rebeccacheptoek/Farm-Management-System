@@ -152,6 +152,12 @@ def farmNote(request):
     context = {'farm_notes': farm_notes}
     return render(request, 'farm_notes.html', context)
 
+
+def farmRegister(request):
+    farm_registers = FarmRegister.objects.all()
+    context = {'farm_registers': farm_registers}
+    return render(request, 'farm_register.html', context)
+
 @login_required(login_url='custom-login')
 def delete(request, pk):
     farm = Farm.objects.get(id=pk)

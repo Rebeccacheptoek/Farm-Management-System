@@ -25,6 +25,7 @@ urlpatterns = [
     path('farm-notes', views.farmNote, name='farm-note'),
     path('farm-lease', views.farmLease, name='farm-lease'),
     path('farm-crop', views.farmCrop, name='farm-crop'),
+    path('farm-register', views.farmRegister, name='farm-register'),
 
     # path('generate-report/', views.generateReport, name='generate-report'),
     # path('report/', views.TotalFarmExpenses, name='report'),
