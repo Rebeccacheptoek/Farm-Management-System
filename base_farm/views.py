@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .models import Farm, Crop, FarmRegister, Category, FarmCrop, FarmLease, FarmNotes
-from .forms import FarmRegisterForm, FarmForm, CreateUserForm
+from .forms import FarmRegisterForm, FarmForm, CreateUserForm, EndUserForm
 from django.contrib.auth.forms import UserCreationForm
 
 # from django.contrib.auth.forms import us
@@ -79,6 +79,15 @@ def logoutUser(request):
     return redirect('home')
 
 
+def endUser(request):
+    form = EndUserForm()
+    if request.method == 'POST':
+        form = EndUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    context = {'form': form}
+    return redirect('home', context)
 # def loginPage(request):
 #     context = {}
 #     return render(request, 'base_farm/login.html', context)
