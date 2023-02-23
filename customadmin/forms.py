@@ -25,7 +25,7 @@ class UserForm(ModelForm):
 class CategoryForm(ModelForm):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ['name', 'description',]
 
 
 class FarmRegisterForm(ModelForm):

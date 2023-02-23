@@ -1,5 +1,48 @@
 {% extends 'admin/base.html' %}
 
 {% block content %}
-    <h1>Farm notes</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+        <div>
+{#            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>#}
+            </div>
+            <div>
+
+                  <a href="{% url 'add-farm-note' %}"
+                       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                      <i class="fa-solid fa-plus"></i>Add Farm Note</a>
+
+        </div>
+          </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>S No.</th>
+                        <th>farm Crop</th>
+                        <th>Notes</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for farmnote in farm_notes %}
+                    <tr>
+                        <td>{{ farmnote.id }}</td>
+                        <td>{{ farmnote.farm_crop_id }}</td>
+                        <td>{{ farmnote.notes }}</td>
+                        <td><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fa-sharp fa-solid fa-file-pen"></i>Edit</a>
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm">
+                            <i class="fa-solid fa-trash"></i>Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

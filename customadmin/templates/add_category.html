@@ -4,7 +4,7 @@
 {% block content %}
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Add Category
+        Category
     </button>
 
     <!-- Modal -->
@@ -12,25 +12,28 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Category</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create farm</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="contactForm" method="POST" action="">
                         {% csrf_token %}
-                        {{ crispy }}
+                        {{ form|crispy }}
                         <div class="form-group">
                             <label for="name">Category Name:</label>
-{#                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name...">#}
-                            {{ form.name }}
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." value="{{ form.name }}">
+{#                            {{ form.name }}#}
                         </div>
                         <div class="form-group">
                             <label for="description">Description:</label>
-{#                            <textarea class="form-control" id="description" name="description"#}
-{#                                      placeholder="Crop description.."></textarea>#}
-                            {{ form.description }}
+                            <textarea class="form-control" id="description" name="description"
+                                      placeholder="Crop description..">{{ form.description }}</textarea>
+{#                            {{ form.description }}#}
                         </div>
-
+{#                        <div class="form-group">#}
+{#                            <label for="duration">Parent Category:</label>#}
+{#                            {{ form.parent_category_id }}#}
+{#                        </div>#}
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
@@ -42,13 +45,6 @@
             </div>
         </div>
     </div>
-
-    {#    <form method="post" class="my-class">#}
-    {#        {{ form|crispy }}#}
-    {#    </form>#}
-
-
-
 
     <!-- JavaScript code to handle form submission -->
     <script>
