@@ -36,7 +36,7 @@ def admin_login(request):
 
             messages.info(request, 'Invalid password')
             return redirect('/')
-        return render(request, 'login.html')
+        return render(request, 'admin/login.html')
     except Exception as e:
         print(e)
 
