@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.db.models import Sum
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -239,6 +239,20 @@ def pie_chart(request):
     })
 
 
+def total_expenses(request):
+    labels = []
+    data = []
+
+    queryset = FarmRegister.objects.values('total_cost').annotate(total_cost=Sum('total_cost')).order_by(
+        '-date_created')
+    for entry in queryset:
+        labels.append(entry['farm_crop_id'])
+        data.append(entry['category_id'])
+
+    return render(request, 'pie_chart.html', {
+        'labels': labels,
+        'data': data,
+    })
 
 
 # @login_required(login_url='custom-login')

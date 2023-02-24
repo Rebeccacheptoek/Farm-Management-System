@@ -1,35 +1,82 @@
 {% extends 'admin/base.html' %}
 
 {% block content %}
-  <div id="container" style="width: 75%;">
-    <canvas id="pie-chart"></canvas>
-  </div>
+    <div id="container" style="width: 75%;">
+        <canvas id="pie-chart"></canvas>
+    </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-  <script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
 
-    var config = {
-      type: 'pie',
-      data: {
-        datasets: [{
-          data: {{ data|safe }},
-          backgroundColor: [
-            '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
-          ],
-          label: 'Population'
-        }],
-        labels: {{ labels|safe }}
-      },
-      options: {
-        responsive: true
-      }
-    };
+        var config = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: {{ data|safe }},
+                    backgroundColor: [
+                        '#2DB0C3', '#FF5733', '#790EF7', '#23F70E', '#D3D3D3'
+                    ],
+                    label: 'Population'
+                }],
+                labels: {{ labels|safe }}
+            },
+            options: {
+                responsive: true
+            }
+        };
 
-    window.onload = function() {
-      var ctx = document.getElementById('pie-chart').getContext('2d');
-      window.myPie = new Chart(ctx, config);
-    };
+        window.onload = function () {
+            var ctx = document.getElementById('pie-chart').getContext('2d');
+            window.myPie = new Chart(ctx, config);
+        };
 
-  </script>
+    </script>
+
+
+    <div id="container" style="width: 75%;">
+        <canvas id="population-chart" data-url="{% url 'total-expenses' %}"></canvas>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+
+        $(function () {
+
+            var $populationChart = $("#population-chart");
+            $.ajax({
+                url: $populationChart.data("url"),
+                success: function (data) {
+
+                    var ctx = $populationChart[0].getContext("2d");
+
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: 'Expenses',
+                                backgroundColor: 'blue',
+                                data: data.data
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Population Bar Chart'
+                            }
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+    </script>
 
 {% endblock %}
