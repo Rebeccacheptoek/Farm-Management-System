@@ -16,48 +16,36 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="contactForm" method="POST" action="">
+                    <form id="contactForm" method="POST" action="{% url 'add-farm-register' %}">
                         {% csrf_token %}
                         {{ crispy }}
                         <div class="form-group">
-                            <label for="name">Farm Crop Name:</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name...">
-{#                            {{ form.farm_crop_id }}#}
+                            <label for="">Farm Crop Name:</label>
+                            {{ form.farm_crop_id }}
                         </div>
                         <div class="form-group">
                             <label for="description">Category:</label>
-{#                            <textarea class="form-control" id="description" name="description"#}
-{#                                      placeholder="Crop description.."></textarea>#}
                             {{ form.category_id }}
                         </div>
                         <div class="form-group">
                             <label for="duration">Total cost:</label>
-{#                            <input type="text" class="form-control" id="duration" name="duration"#}
-{#                                   placeholder="Duration in months..">#}
                             {{ form.total_cost }}
                         </div>
                         <div class="form-group">
                             <label for="duration">Quantity:</label>
-{#                            <input type="text" class="form-control" id="duration" name="duration"#}
-{#                                   placeholder="Duration in months..">#}
                             {{ form.quantity }}
                         </div>
                         <div class="form-group">
                             <label for="duration">Description:</label>
-{#                            <input type="text" class="form-control" id="duration" name="duration"#}
-{#                                   placeholder="Duration in months..">#}
                             {{ form.description }}
                         </div>
-                        <div class="form-group">
-                            <label for="duration">Date created:</label>
-{#                            <input type="text" class="form-control" id="duration" name="duration"#}
-{#                                   placeholder="Duration in months..">#}
-                            {{ form.date_created }}
-                        </div>
+{#                        <div class="form-group">#}
+{#                            <label for="time">Date created:</label>#}
+{#                            {{ form.date_created }}#}
+{#                        </div>#}
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
-{#                            <a href="{% url 'b-crop' %}"  class="btn btn-primary">Submit</a>#}
                         </div>
                     </form>
                 </div>
@@ -77,7 +65,7 @@
                     data: $(this).serialize(),
                     success: function (response) {
                         // handle successful form submission
-                        $('#myModal .modal-body').html(response);
+                        // $('#myModal .modal-body').html(response);
                     },
                     error: function (response) {
                         // handle form submission errors

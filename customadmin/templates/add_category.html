@@ -18,22 +18,28 @@
                 <div class="modal-body">
                     <form id="contactForm" method="POST" action="">
                         {% csrf_token %}
-                        {{ form|crispy }}
+                        {{ crispy }}
                         <div class="form-group">
                             <label for="name">Category Name:</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." value="{{ form.name }}">
-{#                            {{ form.name }}#}
+{#                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." value="{{ form.name }}">#}
+                            {{ form.name }}
                         </div>
                         <div class="form-group">
                             <label for="description">Description:</label>
-                            <textarea class="form-control" id="description" name="description"
-                                      placeholder="Crop description..">{{ form.description }}</textarea>
-{#                            {{ form.description }}#}
+{#                            <textarea class="form-control" id="description" name="description"#}
+{#                                      placeholder="Crop description..">{{ form.description }}</textarea>#}
+                            {{ form.description }}
                         </div>
-{#                        <div class="form-group">#}
-{#                            <label for="duration">Parent Category:</label>#}
-{#                            {{ form.parent_category_id }}#}
-{#                        </div>#}
+                        <div class="form-group">
+                            <label for="duration">Parent Category:</label>
+                            {% for parent in parents %}
+                                <select name="parent_category_id" id="parent_category_id">
+                                    <option value="">Select option</option>
+                                    <option value="{{ parent.id }}">{{ parent.parent_category_id }}</option>
+                                </select>
+
+                            {% endfor %}
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>

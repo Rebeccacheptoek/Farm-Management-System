@@ -40,8 +40,7 @@ class Crop(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-
-    # parent_category_id = models.ForeignKey(FarmRegister, on_delete=models.CASCADE, null=True)
+    parent_category_id = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -56,7 +55,7 @@ class FarmCrop(models.Model):
     status = models.TextField(blank=True)
 
     def __str__(self):
-        return self.farm_id, self.crop_id
+        return str(self.farm_id)
 
 
 class FarmRegister(models.Model):
@@ -70,7 +69,7 @@ class FarmRegister(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.category_id
+        return str(self.farm_crop_id)
 
 
 class FarmNotes(models.Model):
@@ -78,4 +77,4 @@ class FarmNotes(models.Model):
     notes = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return self.notes
+        return str(self.farm_crop_id)

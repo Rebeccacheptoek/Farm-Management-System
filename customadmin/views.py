@@ -137,14 +137,15 @@ def category(request):
 
 
 def addCategory(request):
+    parents = Category.objects.filter(parent_category_id=None)
     form = CategoryForm()
     if request.method == 'POST':
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('category')
-    context = {'form': form}
-    return render(request, 'add_category.html')
+    context = {'form': form, 'parents': parents}
+    return render(request, 'add_category.html', context)
 
 
 def farmLease(request):
