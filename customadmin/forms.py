@@ -31,7 +31,7 @@ class CategoryForm(ModelForm):
 class FarmRegisterForm(ModelForm):
     class Meta:
         model = FarmRegister
-        fields = '__all__'
+        fields = ['farm_crop_id', 'category_id', 'unit_cost', 'unit_acre', 'total_cost', 'quantity', 'description']
 
 
 class FarmNoteForm(ModelForm):

@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.db.models import Sum
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -9,8 +9,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Crop, Farm, FarmRegister, FarmCrop, FarmLease, FarmNotes, Category
 # from slick_reporting.views import SlickReportView
 # from slick_reporting.fields import SlickReportField
-from .forms import CropForm, FarmForm, UserForm, CategoryForm, FarmRegisterForm, FarmNoteForm, FarmCropForm, \
-    FarmLeaseForm
+from .forms import *
+# from .forms import CategoryForm, FarmRegisterForm, FarmNoteForm, FarmCropForm
 
 
 # Create your views here.
@@ -212,6 +212,10 @@ def addFarmRegister(request):
         if form.is_valid():
             form.save()
             return redirect('farm-register')
+        else:
+            # Handle invalid form data here, e.g.:
+            return HttpResponse('Invalid form data')
+            pass
     context = {'form': form}
     return render(request, 'add_farm_register.html', context)
 

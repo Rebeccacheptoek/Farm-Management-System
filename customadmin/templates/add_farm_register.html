@@ -16,7 +16,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="contactForm" method="POST" action="{% url 'add-farm-register' %}">
+                    <form id="contactForm" method="post" action="">
                         {% csrf_token %}
                         {{ crispy }}
                         <div class="form-group">
@@ -26,6 +26,13 @@
                         <div class="form-group">
                             <label for="description">Category:</label>
                             {{ form.category_id }}
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Unit Cost:</label>
+                            {{ form.unit_cost }}
+                        </div><div class="form-group">
+                            <label for="description">Unit Acre:</label>
+                            {{ form.unit_acre }}
                         </div>
                         <div class="form-group">
                             <label for="duration">Total cost:</label>
@@ -39,10 +46,6 @@
                             <label for="duration">Description:</label>
                             {{ form.description }}
                         </div>
-{#                        <div class="form-group">#}
-{#                            <label for="time">Date created:</label>#}
-{#                            {{ form.date_created }}#}
-{#                        </div>#}
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
@@ -53,29 +56,4 @@
             </div>
         </div>
     </div>
-
-    <!-- JavaScript code to handle form submission -->
-    <script>
-        $(document).ready(function () {
-            $('#contactForm').on('submit', function (event) {
-                event.preventDefault(); // prevent default form submission
-                $.ajax({
-                    type: 'POST',
-                    url: '/contact/', // URL to handle the form submission
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        // handle successful form submission
-                        // $('#myModal .modal-body').html(response);
-                    },
-                    error: function (response) {
-                        // handle form submission errors
-                        $('#myModal .modal-body').html(response);
-                    }
-                });
-            });
-        });
-    </script>
-
-
-
 {% endblock content %}
