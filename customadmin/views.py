@@ -104,14 +104,20 @@ def viewCrop(request, pk):
     return render(request, 'view-crop.html', context)
 
 
-@login_required(login_url='custom-login')
+# @login_required(login_url='custom-login')
 def addCrop(request):
     form = CropForm()
     if request.method == 'POST':
         form = CropForm(request.POST)
+        # import pdb
+        # pdb.set_trace()
         if form.is_valid():
             form.save()
             return redirect('b-crop')
+        else:
+            # Handle invalid form data here, e.g.:
+            return HttpResponse('Invalid form data')
+            pass
     context = {'form': form}
     return render(request, 'add_crop.html', context)
 

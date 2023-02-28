@@ -31,7 +31,7 @@ class FarmLease(models.Model):
 class Crop(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    duration = models.DurationField()
+    duration = models.PositiveIntegerField()
 
     def __str__(self):
         return self.name

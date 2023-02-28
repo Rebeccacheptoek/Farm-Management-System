@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class CropForm(ModelForm):
     class Meta:
         model = Crop
-        fields = ['name', 'description', 'duration']
+        fields = '__all__'
 
 
 class FarmForm(ModelForm):

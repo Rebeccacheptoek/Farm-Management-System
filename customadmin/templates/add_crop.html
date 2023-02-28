@@ -34,12 +34,11 @@
                             <label for="duration">Duration:</label>
 {#                            <input type="text" class="form-control" id="duration" name="duration"#}
 {#                                   placeholder="Duration in months..">#}
-                            {{ form.duration }}
+                            {{ form.duration }} <span class="text-muted">(Duration in months)</span>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
-{#                            <a href="{% url 'b-crop' %}"  class="btn btn-primary">Submit</a>#}
                         </div>
                     </form>
                 </div>
@@ -48,34 +47,31 @@
         </div>
     </div>
 
-    {#    <form method="post" class="my-class">#}
-    {#        {{ form|crispy }}#}
-    {#    </form>#}
 
 
 
 
     <!-- JavaScript code to handle form submission -->
-    <script>
-        $(document).ready(function () {
-            $('#contactForm').on('submit', function (event) {
-                event.preventDefault(); // prevent default form submission
-                $.ajax({
-                    type: 'POST',
-                    url: '/contact/', // URL to handle the form submission
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        // handle successful form submission
-                        $('#myModal .modal-body').html(response);
-                    },
-                    error: function (response) {
-                        // handle form submission errors
-                        $('#myModal .modal-body').html(response);
-                    }
-                });
-            });
-        });
-    </script>
+{#    <script>#}
+{#        $(document).ready(function () {#}
+{#            $('#contactForm').on('submit', function (event) {#}
+{#                event.preventDefault(); // prevent default form submission#}
+{#                $.ajax({#}
+{#                    type: 'POST',#}
+{#                    url: '/contact/', // URL to handle the form submission#}
+{#                    data: $(this).serialize(),#}
+{#                    success: function (response) {#}
+{#                        // handle successful form submission#}
+{#                        $('#myModal .modal-body').html(response);#}
+{#                    },#}
+{#                    error: function (response) {#}
+{#                        // handle form submission errors#}
+{#                        $('#myModal .modal-body').html(response);#}
+{#                    }#}
+{#                });#}
+{#            });#}
+{#        });#}
+{#    </script>#}
 
 
 
