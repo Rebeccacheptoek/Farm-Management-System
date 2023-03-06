@@ -40,7 +40,7 @@ class Crop(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    parent_category_id = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+    parent_category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

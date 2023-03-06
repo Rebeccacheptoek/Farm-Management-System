@@ -12,6 +12,8 @@ from .models import Crop, Farm, FarmRegister, FarmCrop, FarmLease, FarmNotes, Ca
 from .forms import *
 # from .forms import CategoryForm, FarmRegisterForm, FarmNoteForm, FarmCropForm
 
+import pdb
+
 
 # Create your views here.
 def admin_login(request):

@@ -10,10 +10,20 @@ class CropForm(ModelForm):
         fields = '__all__'
 
 
+
+# class FarmForm(ModelForm):
+#     class Meta:
+#         model = Farm
+#         fields = ['name', 'description', 'size', 'location', 'is_mine']
 class FarmForm(ModelForm):
     class Meta:
         model = Farm
         fields = ['name', 'description', 'size', 'location', 'is_mine']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
 
 
 class UserForm(ModelForm):
@@ -25,7 +35,7 @@ class UserForm(ModelForm):
 class CategoryForm(ModelForm):
     class Meta:
         model = Category
-        fields = ['name', 'description',]
+        fields = ['name', 'description', 'parent_category']
 
 
 class FarmRegisterForm(ModelForm):
