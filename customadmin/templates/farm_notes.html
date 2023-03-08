@@ -12,6 +12,46 @@
                   <a href="{% url 'add-farm-note' %}"
                        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                       <i class="fa-solid fa-plus"></i>Add Farm Note</a>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <i class="fa-solid fa-plus"></i> Add Farm Note
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Farm Notes</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm" method="POST" action="">
+                        {% csrf_token %}
+                        {{ crispy }}
+                        <div class="form-group">
+                            <label for="name">Farm Crop:</label>
+{#                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name...">#}
+                            {{ form.farm_crop_id }}
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Notes:</label>
+{#                            <textarea class="form-control" id="description" name="description"#}
+{#                                      placeholder="Crop description.."></textarea>#}
+                            {{ form.notes }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+{#                            <a href="{% url 'b-crop' %}"  class="btn btn-primary">Submit</a>#}
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
         </div>
           </div>

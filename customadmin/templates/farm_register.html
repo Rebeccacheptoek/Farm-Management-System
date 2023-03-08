@@ -8,10 +8,65 @@
 {#            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>#}
             </div>
             <div>
+{##}
+{#                  <a href="{% url 'add-farm-register' %}"#}
+{#                       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">#}
+{#                      <i class="fa-solid fa-plus"></i>Register Farm</a>#}
+                    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <i class="fa-solid fa-plus">Register Farm</i>
+    </button>
 
-                  <a href="{% url 'add-farm-register' %}"
-                       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                      <i class="fa-solid fa-plus"></i>Register Farm</a>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Register farm</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm" method="post" action="">
+                        {% csrf_token %}
+                        {{ crispy }}
+                        <div class="form-group">
+                            <label for="">Farm Crop Name:</label>
+                            {{ form.farm_crop_id }}
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Category:</label>
+                            {{ form.category_id }}
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Unit Cost:</label>
+                            {{ form.unit_cost }}
+                        </div><div class="form-group">
+                            <label for="description">Unit Acre:</label>
+                            {{ form.unit_acre }}
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Total cost:</label>
+                            {{ form.total_cost }}
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Quantity:</label>
+                            {{ form.quantity }}
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Description:</label>
+                            {{ form.description }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
         </div>
           </div>

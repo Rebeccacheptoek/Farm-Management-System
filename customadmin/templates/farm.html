@@ -9,9 +9,67 @@
             </div>
             <div>
 
-                  <a href="{% url 'add-farm' %}"
-                       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                      <i class="fa-solid fa-plus"></i>Create Farm</a>
+{#                  <a href="{% url 'add-farm' %}"#}
+{#                       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">#}
+{#                      <i class="fa-solid fa-plus"></i>Create Farm</a>#}
+                    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+         <i class="fa-solid fa-plus"></i>Create Farm
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create farm</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm" method="POST" action="">
+                        {% csrf_token %}
+                        {{ crispy }}
+                        <div class="form-group">
+                            <label for="name">Farm Name:</label>
+{#                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name...">#}
+                            {{ form.name }}
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+{#                            <textarea class="form-control" id="description" name="description"#}
+{#                                      placeholder="Crop description.."></textarea>#}
+                            {{ form.description }}
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Size:</label>
+{#                            <input type="text" class="form-control" id="duration" name="duration"#}
+{#                                   placeholder="Duration in months..">#}
+                            {{ form.size }}
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Location:</label>
+{#                            <input type="text" class="form-control" id="duration" name="duration"#}
+{#                                   placeholder="Duration in months..">#}
+                            {{ form.location }}
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Ownership:</label>
+{#                            <input type="text" class="form-control" id="duration" name="duration"#}
+{#                                   placeholder="Duration in months..">#}
+                            {{ form.is_mine }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+{#                            <a href="{% url 'b-crop' %}"  class="btn btn-primary">Submit</a>#}
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
         </div>
           </div>

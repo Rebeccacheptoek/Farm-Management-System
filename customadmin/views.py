@@ -63,7 +63,13 @@ def index(request):
 
 def farm(request):
     farms = Farm.objects.all()
-    context = {'farms': farms}
+    form = FarmForm()
+    if request.method == 'POST':
+        form = FarmForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('farm')
+    context = {'farms': farms, 'form': form}
     return render(request, 'farm.html', context)
 
 
@@ -95,19 +101,6 @@ def updateFarm(request, pk):
 
 def crop(request):
     crops = Crop.objects.all()
-    context = {'crops': crops}
-    return render(request, 'crop.html', context)
-
-
-def viewCrop(request, pk):
-    crops = Crop.objects.get(id=pk)
-    farm_crop = FarmCrop.objects.all()
-    context = {'crops': crops, 'farm_crop': farm_crop}
-    return render(request, 'view-crop.html', context)
-
-
-# @login_required(login_url='custom-login')
-def addCrop(request):
     form = CropForm()
     if request.method == 'POST':
         form = CropForm(request.POST)
@@ -120,8 +113,33 @@ def addCrop(request):
             # Handle invalid form data here, e.g.:
             return HttpResponse('Invalid form data')
             pass
-    context = {'form': form}
-    return render(request, 'add_crop.html', context)
+    context = {'crops': crops, 'form': form}
+    return render(request, 'crop.html', context)
+
+
+def viewCrop(request, pk):
+    crops = Crop.objects.get(id=pk)
+    farm_crop = FarmCrop.objects.all()
+    context = {'crops': crops, 'farm_crop': farm_crop}
+    return render(request, 'view-crop.html', context)
+
+
+# @login_required(login_url='custom-login')
+# def addCrop(request):
+#     form = CropForm()
+#     if request.method == 'POST':
+#         form = CropForm(request.POST)
+#         # import pdb
+#         # pdb.set_trace()
+#         if form.is_valid():
+#             form.save()
+#             return redirect('b-crop')
+#         else:
+#             # Handle invalid form data here, e.g.:
+#             return HttpResponse('Invalid form data')
+#             pass
+#     context = {'form': form}
+#     return render(request, 'add_crop.html', context)
 
 
 @login_required(login_url='custom-login')
@@ -140,11 +158,6 @@ def updateCrop(request, pk):
 
 def category(request):
     categories = Category.objects.all()
-    context = {'categories': categories}
-    return render(request, 'category.html', context)
-
-
-def addCategory(request):
     parents = Category.objects.filter(parent_category_id=None)
     form = CategoryForm()
     if request.method == 'POST':
@@ -152,68 +165,93 @@ def addCategory(request):
         if form.is_valid():
             form.save()
             return redirect('category')
-    context = {'form': form, 'parents': parents}
-    return render(request, 'add_category.html', context)
+    context = {'categories': categories, 'form': form, 'parents': parents}
+    return render(request, 'category.html', context)
+
+
+# def addCategory(request):
+#     parents = Category.objects.filter(parent_category_id=None)
+#     form = CategoryForm()
+#     if request.method == 'POST':
+#         form = CategoryForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('category')
+#     context = {'form': form, 'parents': parents}
+#     return render(request, 'add_category.html', context)
 
 
 def farmLease(request):
     farm_leases = FarmLease.objects.all()
-    context = {'farm_leases': farm_leases}
-    return render(request, 'farm_lease.html', context)
-
-
-def addFarmLease(request):
     form = FarmLeaseForm()
     if request.method == 'POST':
         form = FarmLeaseForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('farm-lease')
-    context = {'form': form}
-    return render(request, 'add_farm_lease.html', context)
+    context = {'farm_leases': farm_leases, 'form': form}
+    return render(request, 'farm_lease.html', context)
+
+
+# def addFarmLease(request):
+#     form = FarmLeaseForm()
+#     if request.method == 'POST':
+#         form = FarmLeaseForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('farm-lease')
+#     context = {'form': form}
+#     return render(request, 'add_farm_lease.html', context)
 
 
 def farmCrop(request):
     farm_crops = FarmCrop.objects.all()
-    context = {'farm_crops': farm_crops}
-    return render(request, 'farm_crop.html', context)
-
-
-def addFarmCrop(request):
     form = FarmCropForm()
     if request.method == 'POST':
         form = FarmCropForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('farm-crop')
-    context = {'form': form}
-    return render(request, 'add_farm_crop.html', context)
+    context = {'farm_crops': farm_crops, 'form': form}
+    return render(request, 'farm_crop.html', context)
+
+
+# def addFarmCrop(request):
+#     form = FarmCropForm()
+#     if request.method == 'POST':
+#         form = FarmCropForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('farm-crop')
+#     context = {'form': form}
+#     return render(request, 'add_farm_crop.html', context)
 
 
 def farmNote(request):
     farm_notes = FarmNotes.objects.all()
-    context = {'farm_notes': farm_notes}
-    return render(request, 'farm_notes.html', context)
-
-
-def addFarmNote(request):
     form = FarmNoteForm()
     if request.method == 'POST':
         form = FarmNoteForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('farm-note')
-    context = {'form': form}
-    return render(request, 'add_farm_note.html', context)
+    context = {'farm_notes': farm_notes, 'form': form}
+    return render(request, 'farm_notes.html', context)
+
+
+# def addFarmNote(request):
+#     form = FarmNoteForm()
+#     if request.method == 'POST':
+#         form = FarmNoteForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('farm-note')
+#     context = {'form': form}
+#     return render(request, 'add_farm_note.html', context)
 
 
 def farmRegister(request):
     farm_registers = FarmRegister.objects.all()
-    context = {'farm_registers': farm_registers}
-    return render(request, 'farm_register.html', context)
-
-
-def addFarmRegister(request):
     form = FarmRegisterForm()
     if request.method == 'POST':
         form = FarmRegisterForm(request.POST)
@@ -224,8 +262,23 @@ def addFarmRegister(request):
             # Handle invalid form data here, e.g.:
             return HttpResponse('Invalid form data')
             pass
-    context = {'form': form}
-    return render(request, 'add_farm_register.html', context)
+    context = {'farm_registers': farm_registers, 'form': form}
+    return render(request, 'farm_register.html', context)
+
+
+# def addFarmRegister(request):
+#     form = FarmRegisterForm()
+#     if request.method == 'POST':
+#         form = FarmRegisterForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('farm-register')
+#         else:
+#             # Handle invalid form data here, e.g.:
+#             return HttpResponse('Invalid form data')
+#             pass
+#     context = {'form': form}
+#     return render(request, 'add_farm_register.html', context)
 
 
 @login_required(login_url='custom-login')
@@ -255,14 +308,18 @@ def pie_chart(request):
 def total_expenses(request):
     labels = []
     data = []
+    # queryset = FarmRegister.objects.order_by('-farm_crop_id')[:4]
+    # for farmregister in queryset:
+    #     labels.append(farmregister.total_cost)
+    #     data.append(farmregister.quantity)
 
-    queryset = FarmRegister.objects.values('total_cost').annotate(total_cost=Sum('total_cost')).order_by(
-        '-date_created')
+    queryset = FarmRegister.objects.values('farm_crop_id').annotate(total_cost=Sum('total_cost')).order_by(
+        '-quantity')
     for entry in queryset:
         labels.append(entry['farm_crop_id'])
-        data.append(entry['category_id'])
+        data.append(entry['total_cost'])
 
-    return render(request, 'pie_chart.html', {
+    return render(request, 'farm_register_chart.html', {
         'labels': labels,
         'data': data,
     })
