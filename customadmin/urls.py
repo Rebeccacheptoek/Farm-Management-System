@@ -39,6 +39,7 @@ urlpatterns = [
 
     path('pie-chart/', views.pie_chart, name='pie-chart'),
     path('total-expenses/', views.total_expenses, name='total-expenses'),
+    path('farm-register-chart/', views.farm_register_chart, name='farm-register-chart'),
 
     path('delete/<str:pk>', views.delete, name='delete'),
 

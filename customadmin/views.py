@@ -11,6 +11,7 @@ from .models import Crop, Farm, FarmRegister, FarmCrop, FarmLease, FarmNotes, Ca
 # from slick_reporting.fields import SlickReportField
 from .forms import *
 # from .forms import CategoryForm, FarmRegisterForm, FarmNoteForm, FarmCropForm
+from django.views.generic import TemplateView
 
 import pdb
 
@@ -101,6 +102,7 @@ def updateFarm(request, pk):
 
 def crop(request):
     crops = Crop.objects.all()
+    farm_crop = FarmCrop.objects.all()
     form = CropForm()
     if request.method == 'POST':
         form = CropForm(request.POST)
@@ -113,7 +115,7 @@ def crop(request):
             # Handle invalid form data here, e.g.:
             return HttpResponse('Invalid form data')
             pass
-    context = {'crops': crops, 'form': form}
+    context = {'crops': crops, 'form': form, 'farm_crop': farm_crop}
     return render(request, 'crop.html', context)
 
 
@@ -308,10 +310,6 @@ def pie_chart(request):
 def total_expenses(request):
     labels = []
     data = []
-    # queryset = FarmRegister.objects.order_by('-farm_crop_id')[:4]
-    # for farmregister in queryset:
-    #     labels.append(farmregister.total_cost)
-    #     data.append(farmregister.quantity)
 
     queryset = FarmRegister.objects.values('farm_crop_id').annotate(total_cost=Sum('total_cost')).order_by(
         '-quantity')
@@ -324,6 +322,16 @@ def total_expenses(request):
         'data': data,
     })
 
+
+def farm_register_chart(request):
+    farm_register_data = FarmRegister.objects.all()
+    labels = [d.unit_acre for d in farm_register_data]
+    data = [d.total_cost for d in farm_register_data]
+    chart_data = {
+        'labels': labels,
+        'data': data,
+    }
+    return render(request, 'farm_register_chart.html', {'chart_data': chart_data})
 
 # @login_required(login_url='custom-login')
 # def generateReport(request):

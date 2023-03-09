@@ -217,7 +217,7 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Addons
+            Reports
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
@@ -230,9 +230,9 @@
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Login</a>
-                    <a class="collapse-item" href="register.html">Register</a>
-                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                    <a class="collapse-item" href="{% url 'pie-chart' %}">Farm Lease Report</a>
+                    <a class="collapse-item" href="{% url 'total-expenses' %}">Farm Register Report</a>
+                    <a class="collapse-item" href="{% url 'farm-register-chart' %}">Farm Register 2</a>
                     <div class="collapse-divider"></div>
                     <h6 class="collapse-header">Other Pages:</h6>
                     <a class="collapse-item" href="404.html">404 Page</a>
@@ -510,6 +510,23 @@
 
 
                 {% endblock content %}
+                       <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
             </div>
         </div>
 
@@ -517,6 +534,7 @@
     <!-- /.container-fluid -->
 
 </div>
+
 <!-- End of Main Content -->
 
 <!-- Footer -->
