@@ -1,7 +1,7 @@
-{#{% extends 'admin/base.html' %}#}
-{#{% load crispy_forms_filters %}#}
-{##}
-{#{% block content %}#}
+{% extends 'admin/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
 {#    <!-- Button trigger modal -->#}
 {#    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">#}
 {#        Add Crop#}
@@ -72,7 +72,23 @@
 {#            });#}
 {#        });#}
 {#    </script>#}
-{##}
-{##}
-{##}
-{#{% endblock content %}#}
+
+<!-- category_list.html -->
+
+<ul>
+{% for category in parent_categories %}
+    <li>
+        {{ category.name }}:
+        {% if category.total_expenses %}
+            Expenses: ${{ category.total_expenses }}
+        {% endif %}
+        {% if category.total_earnings %}
+            Earnings: ${{ category.total_earnings }}
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
+
+
+
+{% endblock content %}

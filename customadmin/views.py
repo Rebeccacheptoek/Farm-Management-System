@@ -329,69 +329,11 @@ def total_expenses(request):
     })
 
 
-def farm_register_chart(request):
-    farm_register_data = FarmRegister.objects.all()
-    labels = [d.unit_acre for d in farm_register_data]
-    data = [d.total_cost for d in farm_register_data]
-    chart_data = {
-        'labels': labels,
-        'data': data,
-    }
-    return render(request, 'farm_register_chart.html', {'chart_data': chart_data})
+def category_list(request):
+    parent_categories = Category.objects.filter(parent=None).annotate(
+        total_expenses=Sum('farmregister__ploughing_fee', 'farmregister__fertilizer_cost', 'farmregister__planting_cost'),
+        total_earnings=Sum('farm__maize_sale', 'farm__bean_sale'),
+    )
+    context = {'parent_categories': parent_categories}
+    return render(request, 'add_crop.html', context)
 
-# @login_required(login_url='custom-login')
-# def generateReport(request):
-#     return render(request, 'generate_report.html')
-
-
-# def TotalFarmExpenses(SlickReportView):
-#     report_model = FarmRegister
-#     date_field = 'date_created'
-#     group_by = 'farm_crop_id'
-#     columns = ['title',
-#                SlickReportField.create(method=Sum, field='total_cost', name='total__cost', verbose_name='Total spent $')
-#                ]
-#
-#     # Charts
-#     charts_settings = [
-#         {
-#             'type': 'bar',
-#             'data_source': 'total__cost',
-#             'title_source': 'title',
-#         },
-#     ]
-#     return render(SlickReportView, 'generate_report.html')
-
-
-# views.py
-from django.shortcuts import render
-import json
-
-
-def chart(request):
-    expenses = FarmRegister.objects.values_list('category_id', 'total_cost', 'unit_acre')
-    earnings = Farm.objects.values_list('name', 'location', 'size')
-
-    chart_data = {
-        'labels': [e[0] for e in expenses],
-        'datasets': [
-            {
-                'label': 'Expenses',
-                'data': [{'x': e[1], 'y': e[2]} for e in expenses],
-                'backgroundColor': 'rgba(255, 99, 132, 0.2)',
-                'borderColor': 'rgba(255, 99, 132, 1)',
-                'borderWidth': 1
-            },
-            {
-                'label': 'Earnings',
-                'data': [{'x': e[1], 'y': e[2]} for e in earnings],
-                'backgroundColor': 'rgba(54, 162, 235, 0.2)',
-                'borderColor': 'rgba(54, 162, 235, 1)',
-                'borderWidth': 1
-            }
-        ]
-    }
-
-    chart_data_json = json.dumps(chart_data)
-
-    return render(request, 'farm_register_chart.html', {'chart_data': chart_data_json})
