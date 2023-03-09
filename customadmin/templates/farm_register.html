@@ -76,11 +76,12 @@
                     <thead>
                     <tr>
                         <th>S No.</th>
-                        <th>Name</th>
-                        <th>Size</th>
-                        <th>Location</th>
-                        <th>Ownership</th>
-                        <th>Action</th>
+                        <th>Farm Crop ID</th>
+                        <th>Category ID</th>
+                        <th>Total Cost</th>
+                        <th>Quantity</th>
+                        <th>Description</th>
+                        <th>Date Created</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -95,7 +96,7 @@
                         <td>{{ farmregister.date_created }}</td>
                         <td><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fa-sharp fa-solid fa-file-pen"></i>Edit</a>
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm">
+                            <a href="{% url 'delete' farmregister.id %}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm">
                             <i class="fa-solid fa-trash"></i>Delete</a>
                         </td>
                     </tr>

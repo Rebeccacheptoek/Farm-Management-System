@@ -9,6 +9,10 @@ class CropForm(ModelForm):
         model = Crop
         fields = '__all__'
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
 
 
 # class FarmForm(ModelForm):
@@ -31,11 +35,21 @@ class UserForm(ModelForm):
         model = User
         fields = ['username', 'email']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
 
 class CategoryForm(ModelForm):
     class Meta:
         model = Category
         fields = ['name', 'description', 'parent_category']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
 
 
 class FarmRegisterForm(ModelForm):
@@ -43,11 +57,21 @@ class FarmRegisterForm(ModelForm):
         model = FarmRegister
         fields = ['farm_crop_id', 'category_id', 'unit_cost', 'unit_acre', 'total_cost', 'quantity', 'description']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
 
 class FarmNoteForm(ModelForm):
     class Meta:
         model = FarmNotes
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
 
 
 class FarmCropForm(ModelForm):
@@ -55,8 +79,18 @@ class FarmCropForm(ModelForm):
         model = FarmCrop
         fields = '__all__'
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
 
 class FarmLeaseForm(ModelForm):
     class Meta:
         model = FarmLease
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'

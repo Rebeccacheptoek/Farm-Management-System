@@ -5,14 +5,8 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
         <div>
-{#            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>#}
             </div>
             <div>
-
-{#                  <a href="{% url 'add-farm' %}"#}
-{#                       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">#}
-{#                      <i class="fa-solid fa-plus"></i>Create Farm</a>#}
-                    <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
          <i class="fa-solid fa-plus"></i>Create Farm
     </button>
@@ -31,37 +25,27 @@
                         {{ crispy }}
                         <div class="form-group">
                             <label for="name">Farm Name:</label>
-{#                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name...">#}
                             {{ form.name }}
                         </div>
                         <div class="form-group">
-                            <label for="description">Description:</label>
-{#                            <textarea class="form-control" id="description" name="description"#}
-{#                                      placeholder="Crop description.."></textarea>#}
-                            {{ form.description }}
-                        </div>
-                        <div class="form-group">
-                            <label for="duration">Size:</label>
-{#                            <input type="text" class="form-control" id="duration" name="duration"#}
-{#                                   placeholder="Duration in months..">#}
+                            <label for="size">Size:</label>
                             {{ form.size }}
                         </div>
                         <div class="form-group">
-                            <label for="duration">Location:</label>
-{#                            <input type="text" class="form-control" id="duration" name="duration"#}
-{#                                   placeholder="Duration in months..">#}
+                            <label for="location">Location:</label>
                             {{ form.location }}
                         </div>
                         <div class="form-group">
-                            <label for="duration">Ownership:</label>
-{#                            <input type="text" class="form-control" id="duration" name="duration"#}
-{#                                   placeholder="Duration in months..">#}
+                            <label for="ownership">Ownership:</label>
                             {{ form.is_mine }}
+                        </div>
+                         <div class="form-group">
+                            <label for="description">Farm Description:</label>
+                            {{ form.description }}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
-{#                            <a href="{% url 'b-crop' %}"  class="btn btn-primary">Submit</a>#}
                         </div>
                     </form>
                 </div>
@@ -83,6 +67,7 @@
                         <th>Size</th>
                         <th>Location</th>
                         <th>Ownership</th>
+                        <th>Description</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -94,6 +79,7 @@
                         <td>{{ farm.size }}</td>
                         <td>{{ farm.location }}</td>
                         <td>{{ farm.is_mine }}</td>
+                        <td>{{ farm.description }}</td>
                         <td><a href="{% url 'edit-farm' farm.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fa-sharp fa-solid fa-file-pen"></i>Edit</a>
                             <a href="{% url 'delete' farm.id %}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm">

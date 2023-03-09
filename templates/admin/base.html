@@ -191,16 +191,15 @@
                 <i class="fa-solid fa-bars"></i>
                 <span>Categories</span></a>
         </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'farm-crop' %}">
-                <i class="fa-solid fa-seedling"></i>
-                <span>Farm Crop</span></a>
-        </li>
         <li class="nav-item">
             <a class="nav-link" href="{% url 'farm-lease' %}">
                 <i class="fa-sharp fa-solid fa-wallet"></i>
                 <span>Farm Lease</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'farm-crop' %}">
+                <i class="fa-solid fa-seedling"></i>
+                <span>Farm Crop</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{% url 'farm-register' %}">
@@ -510,23 +509,23 @@
 
 
                 {% endblock content %}
-                       <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
 
@@ -605,12 +604,12 @@
 
 <!--High charts JS-->
 <script src="https://code.highcharts.com/highcharts.js">
-<script src="https://code.highcharts.com/modules/exporting.js">
-<script src="https://code.highcharts.com/modules/export-data.js">
+    <script src="https://code.highcharts.com/modules/exporting.js">
+        <script src="https://code.highcharts.com/modules/export-data.js">
 
 
-{#Date picker #}
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+            {#Date picker #}
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 

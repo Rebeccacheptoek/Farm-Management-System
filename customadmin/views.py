@@ -163,10 +163,16 @@ def category(request):
     parents = Category.objects.filter(parent_category_id=None)
     form = CategoryForm()
     if request.method == 'POST':
-        form = CategoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('category')
+        name = request.POST['name']
+        description = request.POST['description']
+        parent_category_id = request.POST['parent_category_id']
+
+        Category.objects.create(name=name, description=description, parent_category_id=parent_category_id)
+        # name = request.POST['name']
+        # form = CategoryForm(request.POST)
+        # if form.is_valid():
+        #     form.save()
+        #     return redirect('category')
     context = {'categories': categories, 'form': form, 'parents': parents}
     return render(request, 'category.html', context)
 
@@ -355,3 +361,37 @@ def farm_register_chart(request):
 #         },
 #     ]
 #     return render(SlickReportView, 'generate_report.html')
+
+
+# views.py
+from django.shortcuts import render
+import json
+
+
+def chart(request):
+    expenses = FarmRegister.objects.values_list('category_id', 'total_cost', 'unit_acre')
+    earnings = Farm.objects.values_list('name', 'location', 'size')
+
+    chart_data = {
+        'labels': [e[0] for e in expenses],
+        'datasets': [
+            {
+                'label': 'Expenses',
+                'data': [{'x': e[1], 'y': e[2]} for e in expenses],
+                'backgroundColor': 'rgba(255, 99, 132, 0.2)',
+                'borderColor': 'rgba(255, 99, 132, 1)',
+                'borderWidth': 1
+            },
+            {
+                'label': 'Earnings',
+                'data': [{'x': e[1], 'y': e[2]} for e in earnings],
+                'backgroundColor': 'rgba(54, 162, 235, 0.2)',
+                'borderColor': 'rgba(54, 162, 235, 1)',
+                'borderWidth': 1
+            }
+        ]
+    }
+
+    chart_data_json = json.dumps(chart_data)
+
+    return render(request, 'farm_register_chart.html', {'chart_data': chart_data_json})
