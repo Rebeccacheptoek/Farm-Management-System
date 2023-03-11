@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'report_builder',
     'customadmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,6 +40,8 @@ INSTALLED_APPS = [
     'base_farm.apps.BaseFarmConfig',
     'crispy_forms',
     'crispy_bootstrap5',
+    'report_builder',
+    # 'report_tools',
     # 'slick_reporting',
 ]
 
@@ -65,6 +66,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.static',
+                'django.template.context_processors.media',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',

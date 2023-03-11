@@ -24,20 +24,15 @@
                         {{ crispy }}
                         <div class="form-group">
                             <label for="name">Category Name:</label>
-                            {#                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." value="{{ form.name }}">#}
                             {{ form.name }}
                         </div>
                         <div class="form-group">
                             <label for="description">Description:</label>
-                            {#                            <textarea class="form-control" id="description" name="description"#}
-                            {#                                      placeholder="Crop description..">{{ form.description }}</textarea>#}
-                            {{ form.description }}
+                               {{ form.description }}
                         </div>
                         <div class="form-group">
                             <label for="duration">Parent Category:</label>
-                            {#                            {{ form.parent_category_id }}#}
                             <select name="parent_category_id" id="parent_category_id">
-                                <option value="">Select option</option>
                                 {% for parent in parents %}
                                     <option value="{{ parent.id }}">{{ parent.name }}</option>
                                 {% endfor %}
@@ -48,7 +43,6 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                            {#                            <a href="{% url 'b-crop' %}"  class="btn btn-primary">Submit</a>#}
                         </div>
                     </form>
                 </div>

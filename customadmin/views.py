@@ -1,3 +1,4 @@
+import random
 from django.contrib import messages
 from django.db.models import Sum
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
@@ -5,14 +6,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-
 from .models import Crop, Farm, FarmRegister, FarmCrop, FarmLease, FarmNotes, Category
-# from slick_reporting.views import SlickReportView
-# from slick_reporting.fields import SlickReportField
 from .forms import *
-# from .forms import CategoryForm, FarmRegisterForm, FarmNoteForm, FarmCropForm
 from django.views.generic import TemplateView
-
 import pdb
 
 
@@ -166,13 +162,7 @@ def category(request):
         name = request.POST['name']
         description = request.POST['description']
         parent_category_id = request.POST['parent_category_id']
-
         Category.objects.create(name=name, description=description, parent_category_id=parent_category_id)
-        # name = request.POST['name']
-        # form = CategoryForm(request.POST)
-        # if form.is_valid():
-        #     form.save()
-        #     return redirect('category')
     context = {'categories': categories, 'form': form, 'parents': parents}
     return render(request, 'category.html', context)
 
@@ -247,17 +237,6 @@ def farmNote(request):
     return render(request, 'farm_notes.html', context)
 
 
-# def addFarmNote(request):
-#     form = FarmNoteForm()
-#     if request.method == 'POST':
-#         form = FarmNoteForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('farm-note')
-#     context = {'form': form}
-#     return render(request, 'add_farm_note.html', context)
-
-
 def farmRegister(request):
     farm_registers = FarmRegister.objects.all()
     form = FarmRegisterForm()
@@ -274,21 +253,6 @@ def farmRegister(request):
     return render(request, 'farm_register.html', context)
 
 
-# def addFarmRegister(request):
-#     form = FarmRegisterForm()
-#     if request.method == 'POST':
-#         form = FarmRegisterForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('farm-register')
-#         else:
-#             # Handle invalid form data here, e.g.:
-#             return HttpResponse('Invalid form data')
-#             pass
-#     context = {'form': form}
-#     return render(request, 'add_farm_register.html', context)
-
-
 @login_required(login_url='custom-login')
 def delete(request, pk):
     farm = Farm.objects.get(id=pk)
@@ -296,6 +260,15 @@ def delete(request, pk):
         farm.delete()
         return redirect('farm')
     return render(request, 'delete.html', {'obj': farm})
+
+
+@login_required(login_url='custom-login')
+def delete(request, pk):
+    category = Category.objects.get(id=pk)
+    if request.method == 'POST':
+        category.delete()
+        return redirect('category')
+    return render(request, 'delete.html', {'obj': category})
 
 
 def pie_chart(request):
@@ -329,11 +302,98 @@ def total_expenses(request):
     })
 
 
+def report_view(request):
+    # Get all the parent categories
+    parent_categories = Category.objects.filter(parent_category=None)
+
+    # Create an empty dictionary to store the report data
+    report_data = {}
+
+    # Loop through each parent category and calculate the total expenses and earnings
+    for parent_category in parent_categories:
+        # Get all the child categories for the parent category
+        child_categories = Category.objects.filter(parent_category=parent_category)
+
+        # Create an empty dictionary to store the category report data
+        category_report_data = {}
+
+        # Loop through each child category and calculate the total expenses and earnings
+        for child_category in child_categories:
+            # Get all the farm register entries for the child category
+            category_entries = FarmRegister.objects.filter(category_id__parent_category__name='Expenses',
+                                                           category_id=child_category)
+
+            # Calculate the total expenses and earnings for the child category
+            total_expenses = 0
+            total_earnings = 0
+
+            for entry in category_entries:
+                total_expenses += entry.total_cost if entry.expense.category == child_category else 0
+                total_earnings += entry.total_cost if entry.earning.category == child_category else 0
+
+            # Add the data to the category report dictionary
+            category_report_data[child_category.name] = {'total_expenses': total_expenses,
+                                                         'total_earnings': total_earnings}
+
+        # Add the category report data to the main report dictionary
+        report_data[parent_category.name] = category_report_data
+
+    # Pass the report data to the template for display
+    return render(request, 'add_crop.html', {'report_data': report_data})
+
+
+def chart_view(request):
+    # Get the report data
+    report_data = {}
+
+    parent_categories = Category.objects.filter(parent=None)
+
+    for parent_category in parent_categories:
+        child_categories = Category.objects.filter(parent=parent_category)
+
+        for child_category in child_categories:
+            category_entries = FarmRegister.objects.filter(expense__category=child_category,
+                                                           earning__category=child_category)
+
+            total_expenses = 0
+            total_earnings = 0
+
+            for entry in category_entries:
+                total_expenses += entry.total_cost if entry.expense.category == child_category else 0
+                total_earnings += entry.total_cost if entry.earning.category == child_category else 0
+
+            if parent_category.name not in report_data:
+                report_data[parent_category.name] = {}
+
+            report_data[parent_category.name][child_category.name] = {'total_expenses': total_expenses,
+                                                                      'total_earnings': total_earnings}
+
+    # Convert the report data to a format that can be used in a chart
+    chart_data = {'labels': [], 'datasets': []}
+
+    for parent_category_name, category_report_data in report_data.items():
+        for child_category_name, data in category_report_data.items():
+            if child_category_name not in chart_data['labels']:
+                chart_data['labels'].append(child_category_name)
+
+            if parent_category_name not in [dataset['label'] for dataset in chart_data['datasets']]:
+                # Generate a random color for the dataset
+                color = random.randint(0, 16777215)
+                chart_data['datasets'].append(
+                    {'label': parent_category_name, 'data': [], 'backgroundColor': f"#{color:06x}"})
+
+            dataset_index = [dataset['label'] for dataset in chart_data['datasets']].index(parent_category_name)
+            chart_data['datasets'][dataset_index]['data'].append(data['total_earnings'] - data['total_expenses'])
+
+    # Convert the chart data to a JSON response
+    return JsonResponse(chart_data)
+
+
 def category_list(request):
     parent_categories = Category.objects.filter(parent=None).annotate(
-        total_expenses=Sum('farmregister__ploughing_fee', 'farmregister__fertilizer_cost', 'farmregister__planting_cost'),
+        total_expenses=Sum('farmregister__ploughing_fee', 'farmregister__fertilizer_cost',
+                           'farmregister__planting_cost'),
         total_earnings=Sum('farm__maize_sale', 'farm__bean_sale'),
     )
     context = {'parent_categories': parent_categories}
     return render(request, 'add_crop.html', context)
-

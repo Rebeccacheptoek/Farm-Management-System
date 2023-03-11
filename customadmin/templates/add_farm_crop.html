@@ -2,91 +2,130 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Add Farm Crop
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create farm</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="contactForm" method="POST" action="">
-                        {% csrf_token %}
-                        {{ crispy }}
-                        <div class="form-group">
-                            <label for="name">Farm Crop:</label>
+{#    <!-- Button trigger modal -->#}
+{#    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">#}
+{#        Add Farm Crop#}
+{#    </button>#}
+{##}
+{#    <!-- Modal -->#}
+{#    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#        <div class="modal-dialog">#}
+{#            <div class="modal-content">#}
+{#                <div class="modal-header">#}
+{#                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create farm</h1>#}
+{#                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+{#                </div>#}
+{#                <div class="modal-body">#}
+{#                    <form id="contactForm" method="POST" action="">#}
+{#                        {% csrf_token %}#}
+{#                        {{ crispy }}#}
+{#                        <div class="form-group">#}
+{#                            <label for="name">Farm Crop:</label>#}
 {#                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name...">#}
-                            {{ form.farm_id }}
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Crop:</label>
+{#                            {{ form.farm_id }}#}
+{#                        </div>#}
+{#                        <div class="form-group">#}
+{#                            <label for="description">Crop:</label>#}
 {#                            <textarea class="form-control" id="description" name="description"#}
 {#                                      placeholder="Crop description.."></textarea>#}
-                            {{ form.crop_id }}
-                        </div>
-                        <div class="form-group">
-                            <label for="duration">Planted on:</label>
+{#                            {{ form.crop_id }}#}
+{#                        </div>#}
+{#                        <div class="form-group">#}
+{#                            <label for="duration">Planted on:</label>#}
 {#                            <input type="text" class="form-control" id="duration" name="duration"#}
 {#                                   placeholder="Duration in months..">#}
-                            {{ form.planted_on }}
-                        </div>
-                        <div class="form-group">
-                            <label for="duration">Harvested By:</label>
+{#                            {{ form.planted_on }}#}
+{#                        </div>#}
+{#                        <div class="form-group">#}
+{#                            <label for="duration">Harvested By:</label>#}
 {#                            <input type="text" class="form-control" id="duration" name="duration"#}
 {#                                   placeholder="Duration in months..">#}
-                            {{ form.harvested_by }}
-                        </div>
-                        <div class="form-group">
-                            <label for="duration">Year:</label>
+{#                            {{ form.harvested_by }}#}
+{#                        </div>#}
+{#                        <div class="form-group">#}
+{#                            <label for="duration">Year:</label>#}
 {#                            <input type="text" class="form-control" id="duration" name="duration"#}
 {#                                   placeholder="Duration in months..">#}
-                            {{ form.year_planted }}
-                        </div>
-                        <div class="form-group">
-                            <label for="duration">Status:</label>
+{#                            {{ form.year_planted }}#}
+{#                        </div>#}
+{#                        <div class="form-group">#}
+{#                            <label for="duration">Status:</label>#}
 {#                            <input type="text" class="form-control" id="duration" name="duration"#}
 {#                                   placeholder="Duration in months..">#}
-                            {{ form.status }}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+{#                            {{ form.status }}#}
+{#                        </div>#}
+{#                        <div class="modal-footer">#}
+{#                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
+{#                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>#}
 {#                            <a href="{% url 'b-crop' %}"  class="btn btn-primary">Submit</a>#}
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
+{#                        </div>#}
+{#                    </form>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 
     <!-- JavaScript code to handle form submission -->
-    <script>
-        $(document).ready(function () {
-            $('#contactForm').on('submit', function (event) {
-                event.preventDefault(); // prevent default form submission
-                $.ajax({
-                    type: 'POST',
-                    url: '/contact/', // URL to handle the form submission
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        // handle successful form submission
-                        $('#myModal .modal-body').html(response);
+{#    <script>#}
+{#        $(document).ready(function () {#}
+{#            $('#contactForm').on('submit', function (event) {#}
+{#                event.preventDefault(); // prevent default form submission#}
+{#                $.ajax({#}
+{#                    type: 'POST',#}
+{#                    url: '/contact/', // URL to handle the form submission#}
+{#                    data: $(this).serialize(),#}
+{#                    success: function (response) {#}
+{#                        // handle successful form submission#}
+{#                        $('#myModal .modal-body').html(response);#}
+{#                    },#}
+{#                    error: function (response) {#}
+{#                        // handle form submission errors#}
+{#                        $('#myModal .modal-body').html(response);#}
+{#                    }#}
+{#                });#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <canvas id="myChart"></canvas>
+<script>
+    // Get the chart data from the server
+    fetch('/chart-data/')
+        .then(response => response.json())
+        .then(data => {
+            // Create the chart on the canvas
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                callback: function(value, index, values) {
+                                    return 'M' + value;
+                                }
+                            }
+                        }]
                     },
-                    error: function (response) {
-                        // handle form submission errors
-                        $('#myModal .modal-body').html(response);
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                return 'M' + tooltipItem.yLabel;
+                            }
+                        }
                     }
-                });
+                }
             });
         });
-    </script>
+</script>
+
+
 
 
 

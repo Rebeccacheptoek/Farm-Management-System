@@ -75,19 +75,43 @@
 
 <!-- category_list.html -->
 
-<ul>
-{% for category in parent_categories %}
-    <li>
-        {{ category.name }}:
-        {% if category.total_expenses %}
-            Expenses: ${{ category.total_expenses }}
-        {% endif %}
-        {% if category.total_earnings %}
-            Earnings: ${{ category.total_earnings }}
-        {% endif %}
-    </li>
-{% endfor %}
-</ul>
+{#<ul>#}
+{#{% for category in parent_categories %}#}
+{#    <li>#}
+{#        {{ category.name }}:#}
+{#        {% if category.total_expenses %}#}
+{#            Expenses: ${{ category.total_expenses }}#}
+{#        {% endif %}#}
+{#        {% if category.total_earnings %}#}
+{#            Earnings: ${{ category.total_earnings }}#}
+{#        {% endif %}#}
+{#    </li>#}
+{#{% endfor %}#}
+{#</ul>#}
+<table>
+    <thead>
+        <tr>
+            <th>Parent Category</th>
+            <th>Child Category</th>
+            <th>Total Expenses</th>
+            <th>Total Earnings</th>
+            <th>Net Profit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for parent_category_name, category_report_data in report_data.items %}
+            {% for child_category_name, data in category_report_data.items %}
+                <tr>
+                    <td>{{ parent_category_name }}</td>
+                    <td>{{ child_category_name }}</td>
+                    <td>{{ data.total_expenses }}</td>
+                    <td>{{ data.total_earnings }}</td>
+                    <td>{{ data.total_earnings }} - {{data.total_expenses }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
 
 
 
