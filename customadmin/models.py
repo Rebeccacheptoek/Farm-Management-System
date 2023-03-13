@@ -44,6 +44,13 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def total_cost(self):
+        farm_registers = FarmRegister.objects.filter(category=self)
+        total = 0
+        for farm_register in farm_registers:
+            total += farm_register.total_cost
+        return total
+
 
 class FarmCrop(models.Model):
     farm_id = models.ForeignKey(Farm, on_delete=models.CASCADE, null=True)

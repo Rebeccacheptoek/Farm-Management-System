@@ -10,6 +10,9 @@ from .models import Crop, Farm, FarmRegister, FarmCrop, FarmLease, FarmNotes, Ca
 from .forms import *
 from django.views.generic import TemplateView
 import pdb
+from django.views import View
+from chartjs.views.lines import BaseLineChartView
+
 
 
 # Create your views here.
@@ -271,7 +274,7 @@ def delete(request, pk):
     return render(request, 'delete.html', {'obj': category})
 
 
-def pie_chart(request):
+def farm_lease_pie_chart(request):
     labels = []
     data = []
 
@@ -284,6 +287,35 @@ def pie_chart(request):
         'labels': labels,
         'data': data,
     })
+
+
+def farm_expense_pie_chart(request):
+    labels = []
+    data = []
+
+    queryset = FarmRegister.objects.order_by('-farm_crop_id')[:4]
+    for farmregister in queryset:
+        labels.append(farmregister.category_id)
+        data.append(farmregister.total_cost)
+
+    return render(request, 'farm_register_expense.html', {
+        'labels': labels,
+        'data': data,
+    })
+
+
+def farm_report(request):
+    categories = Category.objects.all()
+    category_totals = {}
+    for category in categories:
+        total_cost = FarmRegister.objects.filter(category_id=category.id).aggregate(Sum('total_cost'))['total_cost__sum'] or 0
+        category_totals[category.name] = total_cost
+
+    # prepare the data for the chart
+    labels = list(category_totals.keys())
+    values = list(category_totals.values())
+
+    return render(request, 'farm_register_expense.html',  {'labels': labels, 'values': values})
 
 
 def total_expenses(request):

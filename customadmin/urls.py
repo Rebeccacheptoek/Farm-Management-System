@@ -37,9 +37,12 @@ urlpatterns = [
     # path('add-farm-register/', views.addFarmRegister, name='add-farm-register'),
 
 
-    path('pie-chart/', views.pie_chart, name='pie-chart'),
-    path('total-expenses/', views.total_expenses, name='total-expenses'),
-    path('category-list/', views.category_list, name='category-list'),
+    path('pie-chart/', views.farm_lease_pie_chart, name='pie-chart'),
+    path('expense-chart/<int:farm_crop_id>/', views.farm_expense_pie_chart, name='expense-chart'),
+    path('farm-report/', views.farm_report, name='farm_report'),
+
+    # path('total-expenses/', views.total_expenses, name='total-expenses'),
+    # path('category-list/', views.category_list, name='category-list'),
 
     path('delete/<str:pk>', views.delete, name='delete'),
 
