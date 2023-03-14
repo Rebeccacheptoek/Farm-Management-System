@@ -1,0 +1,9 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+{% if chart_image %}
+    <img src="data:image/png;base64,{{ chart_image }}" alt="Pie Chart">
+{% else %}
+    <p>No chart data available.</p>
+{% endif %}
+{% endblock content %}

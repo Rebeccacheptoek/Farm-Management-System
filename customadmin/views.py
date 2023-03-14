@@ -12,6 +12,10 @@ from django.views.generic import TemplateView
 import pdb
 from django.views import View
 from chartjs.views.lines import BaseLineChartView
+import matplotlib.pyplot as plt
+from io import BytesIO
+import base64
+
 
 
 
@@ -305,127 +309,39 @@ def farm_expense_pie_chart(request):
 
 
 def farm_report(request):
+    # get all categories
     categories = Category.objects.all()
+
+    # calculate the total cost for each category
     category_totals = {}
     for category in categories:
-        total_cost = FarmRegister.objects.filter(category_id=category.id).aggregate(Sum('total_cost'))['total_cost__sum'] or 0
+        total_cost = FarmRegister.objects.filter(category_id=category.id).aggregate(Sum('total_cost'))[
+                         'total_cost__sum'] or 0
         category_totals[category.name] = total_cost
 
-    # prepare the data for the chart
+    # prepare the data for the pie chart
     labels = list(category_totals.keys())
     values = list(category_totals.values())
 
-    return render(request, 'farm_register_expense.html',  {'labels': labels, 'values': values})
+    # create the pie chart
+    fig, ax = plt.subplots()
+    ax.pie(values, labels=labels, autopct='%1.1f%%')
+    ax.set_title('Expenses on the farm')
+
+    # save the chart to a file
+    chart_image = fig_to_base64(fig)
+
+    # render the template with the chart file name
+    return render(request, 'farm_report.html', {'chart_image': chart_image})
 
 
-def total_expenses(request):
-    labels = []
-    data = []
+def fig_to_base64(fig):
+    """
+    Convert a Matplotlib figure to a base64-encoded PNG image.
+    """
+    buf = BytesIO()
+    fig.savefig(buf, format='png', dpi=120)
+    buf.seek(0)
+    data = base64.b64encode(buf.read())
+    return data.decode('utf-8')
 
-    queryset = FarmRegister.objects.values('farm_crop_id').annotate(total_cost=Sum('total_cost')).order_by(
-        '-quantity')
-    for entry in queryset:
-        labels.append(entry['farm_crop_id'])
-        data.append(entry['total_cost'])
-
-    return render(request, 'farm_register_chart.html', {
-        'labels': labels,
-        'data': data,
-    })
-
-
-def report_view(request):
-    # Get all the parent categories
-    parent_categories = Category.objects.filter(parent_category=None)
-
-    # Create an empty dictionary to store the report data
-    report_data = {}
-
-    # Loop through each parent category and calculate the total expenses and earnings
-    for parent_category in parent_categories:
-        # Get all the child categories for the parent category
-        child_categories = Category.objects.filter(parent_category=parent_category)
-
-        # Create an empty dictionary to store the category report data
-        category_report_data = {}
-
-        # Loop through each child category and calculate the total expenses and earnings
-        for child_category in child_categories:
-            # Get all the farm register entries for the child category
-            category_entries = FarmRegister.objects.filter(category_id__parent_category__name='Expenses',
-                                                           category_id=child_category)
-
-            # Calculate the total expenses and earnings for the child category
-            total_expenses = 0
-            total_earnings = 0
-
-            for entry in category_entries:
-                total_expenses += entry.total_cost if entry.expense.category == child_category else 0
-                total_earnings += entry.total_cost if entry.earning.category == child_category else 0
-
-            # Add the data to the category report dictionary
-            category_report_data[child_category.name] = {'total_expenses': total_expenses,
-                                                         'total_earnings': total_earnings}
-
-        # Add the category report data to the main report dictionary
-        report_data[parent_category.name] = category_report_data
-
-    # Pass the report data to the template for display
-    return render(request, 'add_crop.html', {'report_data': report_data})
-
-
-def chart_view(request):
-    # Get the report data
-    report_data = {}
-
-    parent_categories = Category.objects.filter(parent=None)
-
-    for parent_category in parent_categories:
-        child_categories = Category.objects.filter(parent=parent_category)
-
-        for child_category in child_categories:
-            category_entries = FarmRegister.objects.filter(expense__category=child_category,
-                                                           earning__category=child_category)
-
-            total_expenses = 0
-            total_earnings = 0
-
-            for entry in category_entries:
-                total_expenses += entry.total_cost if entry.expense.category == child_category else 0
-                total_earnings += entry.total_cost if entry.earning.category == child_category else 0
-
-            if parent_category.name not in report_data:
-                report_data[parent_category.name] = {}
-
-            report_data[parent_category.name][child_category.name] = {'total_expenses': total_expenses,
-                                                                      'total_earnings': total_earnings}
-
-    # Convert the report data to a format that can be used in a chart
-    chart_data = {'labels': [], 'datasets': []}
-
-    for parent_category_name, category_report_data in report_data.items():
-        for child_category_name, data in category_report_data.items():
-            if child_category_name not in chart_data['labels']:
-                chart_data['labels'].append(child_category_name)
-
-            if parent_category_name not in [dataset['label'] for dataset in chart_data['datasets']]:
-                # Generate a random color for the dataset
-                color = random.randint(0, 16777215)
-                chart_data['datasets'].append(
-                    {'label': parent_category_name, 'data': [], 'backgroundColor': f"#{color:06x}"})
-
-            dataset_index = [dataset['label'] for dataset in chart_data['datasets']].index(parent_category_name)
-            chart_data['datasets'][dataset_index]['data'].append(data['total_earnings'] - data['total_expenses'])
-
-    # Convert the chart data to a JSON response
-    return JsonResponse(chart_data)
-
-
-def category_list(request):
-    parent_categories = Category.objects.filter(parent=None).annotate(
-        total_expenses=Sum('farmregister__ploughing_fee', 'farmregister__fertilizer_cost',
-                           'farmregister__planting_cost'),
-        total_earnings=Sum('farm__maize_sale', 'farm__bean_sale'),
-    )
-    context = {'parent_categories': parent_categories}
-    return render(request, 'add_crop.html', context)
