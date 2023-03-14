@@ -1,4 +1,7 @@
+import io
 import random
+
+import numpy as np
 from django.contrib import messages
 from django.db.models import Sum
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
@@ -345,3 +348,27 @@ def fig_to_base64(fig):
     data = base64.b64encode(buf.read())
     return data.decode('utf-8')
 
+
+def farm_earnings_expenses(request):
+    # Get the total expenses and earnings for the farm
+    expense_categories = Category.objects.filter(parent_category__name='Expenses').values('name')
+    expense_data = FarmRegister.objects.filter(category_id__parent_category__name='Expenses').values(
+        'category_id__name').annotate(total_cost=Sum('total_cost'))
+    expense_labels = [x['category_id__name'] for x in expense_data]
+    expense_values = [x['total_cost'] for x in expense_data]
+
+    earning_categories = Category.objects.filter(parent_category__name='Earnings').values('name')
+    earning_data = FarmRegister.objects.filter(category_id__parent_category__name='Earnings').values(
+        'category_id__name').annotate(total_cost=Sum('total_cost'))
+    earning_labels = [x['category_id__name'] for x in earning_data]
+    earning_values = [x['total_cost'] for x in earning_data]
+
+    # Render the chart template with the data
+    return render(request, 'total_expenses_and_earnings.html', {
+        'expense_categories': expense_categories,
+        'expense_labels': expense_labels,
+        'expense_values': expense_values,
+        'earning_categories': earning_categories,
+        'earning_labels': earning_labels,
+        'earning_values': earning_values
+    })

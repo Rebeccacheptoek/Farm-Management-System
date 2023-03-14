@@ -40,6 +40,7 @@ urlpatterns = [
     path('pie-chart/', views.farm_lease_pie_chart, name='pie-chart'),
     path('expense-chart/<int:farm_crop_id>/', views.farm_expense_pie_chart, name='expense-chart'),
     path('farm-report/', views.farm_report, name='farm_report'),
+    path('expenses-earnings/', views.farm_earnings_expenses, name='expenses-earnings'),
 
     # path('total-expenses/', views.total_expenses, name='total-expenses'),
     # path('category-list/', views.category_list, name='category-list'),
