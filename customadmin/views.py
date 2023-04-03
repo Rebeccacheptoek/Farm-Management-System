@@ -132,6 +132,12 @@ def viewCrop(request, pk):
     return render(request, 'view-crop.html', context)
 
 
+def viewCategory(request, pk):
+    categories = Category.objects.get(id=pk)
+    context = {'categories': categories}
+    return render(request, 'view-category.html', context)
+
+
 # @login_required(login_url='custom-login')
 # def addCrop(request):
 #     form = CropForm()
