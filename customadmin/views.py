@@ -64,6 +64,7 @@ def updateUser(request):
     return render(request, 'update_user.html', context)
 
 
+@login_required(login_url='login')
 def index(request):
     return render(request, 'index.html')
 
